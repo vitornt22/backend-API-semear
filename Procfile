@@ -1,1 +1,1 @@
-web: gunicorn semear.wsgi
+web: gunicorn semear.wsgi --log-file -

@@ -56,7 +56,7 @@ class UserModel (AbstractBaseUser):
     email = models.EmailField(blank=False, null=False,
                               verbose_name='email adress', unique=True)
     password = models.CharField(
-        blank=False, null=False, verbose_name='password', max_length=15)
+        blank=False, null=False, verbose_name='password', max_length=100)
     phone = models.CharField(verbose_name='phone number',
                              blank=True, null=True, max_length=15)
     can_post = models.BooleanField(default=False, blank=True,)

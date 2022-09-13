@@ -52,7 +52,7 @@ class UserModel (AbstractBaseUser):
     category = models.CharField(
         blank=False, null=False, verbose_name='category', max_length=15)
     username = models.CharField(
-        blank=False, null=False, verbose_name='category', max_length=15)
+        blank=False, null=False, verbose_name='username', max_length=15)
     email = models.EmailField(blank=False, null=False,
                               verbose_name='email adress', unique=True)
     password = models.CharField(

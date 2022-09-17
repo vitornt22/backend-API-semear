@@ -10,6 +10,9 @@ class Church (models.Model):
     cnpj = models.CharField(max_length=14, null=False, blank=False)
     ministery = models.CharField(max_length=14, null=False, blank=False)
     name = models.CharField(max_length=80, null=False, blank=False)
-    adress = models.OneToOneField(Adress, on_delete=models.CASCADE)
-    bankData = models.OneToOneField(BankData, on_delete=models.CASCADE)
-    pix = models.OneToOneField(PIX, on_delete=models.CASCADE)
+    adress = models.OneToOneField(
+        Adress, on_delete=models.CASCADE, null=True, blank=True)
+    bankData = models.OneToOneField(
+        BankData, on_delete=models.CASCADE, null=True, blank=True)
+    pix = models.OneToOneField(
+        PIX, on_delete=models.CASCADE, null=True, blank=True)

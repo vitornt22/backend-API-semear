@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     # RestFramework
     'rest_framework',
     # apps
-    'user', 'church', 'bankData',
+    'user', 'church', 'donor',
+    'missionary', 'project', 'informations'
 ]
 
 REST_FRAMEWORK = {

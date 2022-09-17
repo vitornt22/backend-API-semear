@@ -43,6 +43,7 @@ class UserManager(BaseUserManager):
 
         user.is_admin = True
         user.is_staff = True
+        user.is_active = True
         user.is_superuser = True
         user.save(using=self._db)
         return user
@@ -54,10 +55,10 @@ class UserModel (AbstractBaseUser):
     username = models.CharField(
         blank=False, null=False, verbose_name='username', max_length=15)
     email = models.EmailField(blank=False, null=False,
-                              verbose_name='email adress', unique=True)
+                              verbose_name='email', unique=True)
     password = models.CharField(
         blank=False, null=False, verbose_name='password', max_length=100)
-    phone = models.CharField(verbose_name='phone number',
+    phone = models.CharField(verbose_name='phone',
                              blank=True, null=True, max_length=16)
     can_post = models.BooleanField(default=False, blank=True,)
     is_admin = models.BooleanField(blank=True, null=True, default=False)
@@ -66,7 +67,7 @@ class UserModel (AbstractBaseUser):
     is_superuser = models.BooleanField(blank=True, null=True, default=False)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['category', 'password', 'username']
+    REQUIRED_FIELDS = ['category', 'password', 'username', 'can_post']
 
     objects = UserManager()
 

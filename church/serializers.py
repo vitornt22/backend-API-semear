@@ -10,7 +10,7 @@ class ChurchSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     adress = AdressSerializer()
     bankData = BankDataSerializer()
-    Pix = PIXSerializer()
+    pix = PIXSerializer()
 
     class Meta:
         model = Church

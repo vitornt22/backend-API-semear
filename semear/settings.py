@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # RestFramework
-    'rest_framework_simplejwt',
     'rest_framework',
     # apps
     'user', 'church', 'bankData',
@@ -52,24 +51,10 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-
+        'rest_framework.authentication.TokenAuthentication',
     ]
 }
 
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'BLACKLIST_AFTER_ROTATION': False,
-    'UPDATE_LAST_LOGIN': False,
-    'ALGORITHM': 'HS256',
-    'SIGNING_KEY': 'nx&zj(t2rg3(6&u9e4)gy#l3(drt37x8$)%lp800otx=&$bh0r',
-    'AUTH_HEADER_TYPES': ('Bearer',),
-
-
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

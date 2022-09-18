@@ -1,7 +1,5 @@
 
 
-from operator import pos
-
 from informations.models import PIX, Adress, BankData
 from informations.serializers import (AdressSerializer, BankDataSerializer,
                                       PIXSerializer)
@@ -52,8 +50,8 @@ class ChurchApi (ModelViewSet):
         bankData.save()
 
         pix = PIX.objects.create(
-            typeKey=post_data['pix']['typeKey'],
-            valueKey=post_data['pix']['valueKey']
+            typeKey=post_data['Pix']['typeKey'],
+            valueKey=post_data['Pix']['valueKey']
         )
         pix.save()
 

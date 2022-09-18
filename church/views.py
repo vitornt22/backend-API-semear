@@ -1,5 +1,7 @@
 
 
+from operator import pos
+
 from informations.models import PIX, Adress, BankData
 from informations.serializers import (AdressSerializer, BankDataSerializer,
                                       PIXSerializer)
@@ -18,6 +20,7 @@ class ChurchApi (ModelViewSet):
     def create(self, request, *args, **kwargs):
         post_data = request.data
 
+        print(post_data)
         new_user = UserModel.objects.create_superuser(
             post_data["user.category"],
             post_data["user.username"],

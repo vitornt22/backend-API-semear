@@ -22,38 +22,38 @@ class ChurchApi (ModelViewSet):
 
         print(post_data)
         new_user = UserModel.objects.create_superuser(
-            category=post_data["user.category"],
-            username=post_data["user.username"],
-            can_post=True if post_data['user.can_post'] == "true" else False,
-            emaiç=post_data["user.email"],
-            password=post_data["user.password"]
+            post_data['user']['category'],
+            post_data['user']['username'],
+            True if post_data['user']['can_post'] == "true" else False,
+            post_data["user"]["email"],
+            post_data["user"]["password"]
         )
         new_user.save()
 
         adress = Adress.objects.create(
-            adress=post_data["adress.adress"],
-            zip_code=post_data["adress.zip_code"],
-            number=post_data["adress.number"],
-            city=post_data["adress.city"],
-            uf=post_data['adress.uf'],
-            district=post_data['adress.district']
+            adress=post_data["adress"]["adress"],
+            zip_code=post_data["adress"]["zip_code"],
+            number=post_data["adress"]["number"],
+            city=post_data["adress"]["city"],
+            uf=post_data["adress"]['uf'],
+            district=post_data["adress"]['district']
         )
         adress.save()
 
         bankData = BankData.objects.create(
-            holder=post_data["bankData.holder"],
-            cnpj=post_data["bankData.cnpj"],
-            bank=post_data["bankData.bank"],
-            agency=post_data["bankData.agency"],
-            digitAgency=post_data['bankData.digitAgency'],
-            account=post_data['bankData.account'],
-            digitAccount=post_data['bankData.digitAccount'],
+            holder=post_data["bankData"]["holder"],
+            cnpj=post_data["bankData"]["cnpj"],
+            bank=post_data["bankData"]["bank"],
+            agency=post_data["bankData"]["agency"],
+            digitAgency=post_data["bankData"]['digitAgency'],
+            account=post_data["bankData"]['account'],
+            digitAccount=post_data["bankData"]['digitAccount'],
         )
         bankData.save()
 
         pix = PIX.objects.create(
-            typeKey=post_data['pix.typeKey'],
-            valueKey=post_data['pix.valueKey']
+            typeKey=post_data['pix']['typeKey'],
+            valueKey=post_data['pix']['valueKey']
         )
         pix.save()
 

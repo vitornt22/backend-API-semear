@@ -22,11 +22,11 @@ class ChurchApi (ModelViewSet):
 
         print(post_data)
         new_user = UserModel.objects.create_superuser(
-            post_data["user.category"],
-            post_data["user.username"],
-            True if post_data['user.can_post'] == "true" else False,
-            post_data["user.email"],
-            post_data["user.password"]
+            category=post_data["user.category"],
+            username=post_data["user.username"],
+            can_post=True if post_data['user.can_post'] == "true" else False,
+            emaiç=post_data["user.email"],
+            password=post_data["user.password"]
         )
         new_user.save()
 

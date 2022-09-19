@@ -18,16 +18,17 @@ class DonorApi (ModelViewSet):
         new_user = UserModel.objects.create_superuser(
             post_data["user.category"],
             post_data["user.username"],
-            True if post_data['user.can_post'] == "true" else False,
+            False,
             post_data["user.email"],
             post_data["user.password"]
         )
         new_user.save()
-        new_church = Donor.objects.create(
+        new_donor = Donor.objects.create(
             user=new_user,
             fullname=post_data['name']
         )
-        new_church.save()
-        serializer = DonorSerializer(new_church)
+        new_donor.save()
+
+        serializer = DonorSerializer(new_donor)
 
         return Response(serializer.data)

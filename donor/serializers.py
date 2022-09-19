@@ -4,9 +4,9 @@ from user.serializers import UserSerializer
 from .models import Donor
 
 
-class DonorSerializer(serializers.Serializer):
+class DonorSerializer(serializers.ModelSerializer):
     user = UserSerializer()
 
     class Meta:
         model = Donor
-        fields = '__all__'
+        fields = ('user', 'fullName')

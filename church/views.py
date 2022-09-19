@@ -1,8 +1,8 @@
 
 
 from informations.models import PIX, Adress, BankData
-from informations.serializers import (AdressSerializer, BankDataSerializer,
-                                      PIXSerializer)
+from rest_framework import status
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from user.models import UserModel
@@ -14,6 +14,25 @@ from .serializers import ChurchSerializer
 class ChurchApi (ModelViewSet):
     queryset = Church.objects.all()
     serializer_class = ChurchSerializer
+
+    @action(methods=['get'], detail=True)
+    def getChurch(self, request, pk):
+
+        try:
+            a = Church.objects.get(cnpj=pk)
+        except Church.DoesNotExist:
+            return Response({'error': True})
+
+        print('AA: ', a)
+        return Response(ChurchSerializer(a).data, status=status.HTTP_200_OK)
+
+    @action(methods=['get'], detail=True, )
+    def checkCnpj(self, request, pk):
+        check = False
+        if Church.objects.filter(cnpj=pk).exists():
+            check = True
+
+        return Response({'check': check})
 
     def create(self, request, *args, **kwargs):
         post_data = request.data
@@ -50,8 +69,8 @@ class ChurchApi (ModelViewSet):
         bankData.save()
 
         pix = PIX.objects.create(
-            typeKey=post_data['Pix']['typeKey'],
-            valueKey=post_data['Pix']['valueKey']
+            typeKey=post_data['pix']['typeKey'],
+            valueKey=post_data['pix']['valueKey']
         )
         pix.save()
 

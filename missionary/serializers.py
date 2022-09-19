@@ -1,12 +1,12 @@
 from rest_framework import serializers
 from user.serializers import UserSerializer
 
-from .models import Project
+from .models import Missionary
 
 
-class ProjectSerializer(serializers.ModelSerializer):
+class MissionarySerializer(serializers.ModelSerializer):
     user = UserSerializer()
 
     class Meta:
-        model = Project
+        model = Missionary
         fields = '__all__'

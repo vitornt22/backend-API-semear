@@ -7,10 +7,11 @@ from user.models import UserModel
 
 class Church (models.Model):
     user = models.OneToOneField(UserModel, on_delete=models.CASCADE)
-    cnpj = models.CharField(max_length=14, null=False, blank=False)
+    cnpj = models.CharField(max_length=14, null=False,
+                            blank=False, unique=True)
     ministery = models.CharField(max_length=14, null=False, blank=False)
     name = models.CharField(max_length=80, null=False, blank=False)
-    adress = models.OneToOneField(
+    adress = models.ForeignKey(
         Adress, on_delete=models.CASCADE, null=True, blank=True)
     bankData = models.OneToOneField(
         BankData, on_delete=models.CASCADE, null=True, blank=True)

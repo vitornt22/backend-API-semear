@@ -9,4 +9,5 @@ user_api_router.register(
     'church/api', views.ChurchApi,
     basename='church'
 )
+print(user_api_router.urls)
 urlpatterns = user_api_router.urls

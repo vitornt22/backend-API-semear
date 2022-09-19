@@ -13,7 +13,7 @@ class UserApi (ModelViewSet):
     @action(methods=['get'], detail=True, )
     def checkEmail(self, request, pk):
         check = False
-        if UserModel.objects.filter(cnpj=pk).exists():
+        if UserModel.objects.filter(email=pk).exists():
             check = True
 
         return Response({'check': check})

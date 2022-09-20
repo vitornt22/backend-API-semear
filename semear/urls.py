@@ -22,6 +22,8 @@ urlpatterns = [
     path('', include('user.urls')),
     path('', include('church.urls')),
     path('', include('donor.urls')),
+    path('', include('missionary.urls')),
+    path('', include('project.urls')),
     path('api-token-auth/', views.obtain_auth_token, name='api-token-auth'),
 
 ]

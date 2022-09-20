@@ -1,5 +1,6 @@
 
 
+from church.models import Church
 from informations.models import Adress
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -20,7 +21,7 @@ class MissionaryApi (ModelViewSet):
         new_user = UserModel.objects.create_superuser(
             post_data['user']['category'],
             post_data['user']['username'],
-            True if post_data['user']['can_post'] == "true" else False,
+            True,
             post_data["user"]["email"],
             post_data["user"]["password"]
         )
@@ -39,12 +40,16 @@ class MissionaryApi (ModelViewSet):
             )
             adress.save()
 
+        church = Church.objects.get(id=post_data['church'])
+
         new_Missionary = Missionary.objects.create(
             user=new_user,
             adress=adress,
-            cnpj=post_data['cnpj'],
-            name=post_data['name']
+            church=church,
+            id_adress=post_data['id_adress'],
+            fullName=post_data['fullName']
         )
+
         new_Missionary.save()
         serializer = MissionarySerializer(new_Missionary)
 

@@ -6,7 +6,8 @@ from user.models import UserModel
 
 
 class Church (models.Model):
-    user = models.OneToOneField(UserModel, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        UserModel, on_delete=models.CASCADE, null=True, blank=True)
     cnpj = models.CharField(max_length=14, null=False,
                             blank=False, unique=True)
     ministery = models.CharField(max_length=14, null=False, blank=False)

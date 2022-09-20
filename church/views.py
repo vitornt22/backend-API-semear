@@ -1,7 +1,7 @@
 
 
 from informations.models import PIX, Adress, BankData
-from rest_framework import status
+from rest_framework import generics, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -87,3 +87,16 @@ class ChurchApi (ModelViewSet):
         serializer = ChurchSerializer(new_church)
 
         return Response(serializer.data)
+
+
+class getChurchAddress(generics.RetrieveAPIView):
+    lookup_field = 'cnpj'
+    lookup_url_kwarg = 'cnpj'
+    queryset = Church.objects.all()
+    serializer_class = ChurchSerializer
+
+    def get(self, request, cnpj, *args, **kwargs):
+        a = Church.objects.get(cnpj=cnpj)
+        if a is not None:
+            return Response(ChurchSerializer(a).data)
+        return Response({'check': None})

@@ -19,7 +19,7 @@ class MissionaryApi (ModelViewSet):
 
         adressCheck = post_data["id_adress"]
 
-        if post_data["adress"] is not None:
+        if post_data["adress"] is None:
             adress = Adress.objects.get(id=adressCheck)
         else:
             adress = Adress.objects.create(

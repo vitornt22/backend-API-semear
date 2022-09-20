@@ -10,6 +10,6 @@ class Missionary(models.Model):
     id_church = models.IntegerField()
     id_adress = models.IntegerField(null=True, blank=True)
     church = models.ForeignKey(
-        Church, on_delete=models.CASCADE, null=True, blank=True)
+        Church, on_delete=models.CASCADE)
     fullName = models.CharField(max_length=80, null=False, blank=False)
     adress = models.ForeignKey(Adress, on_delete=models.CASCADE)

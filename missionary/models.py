@@ -12,4 +12,5 @@ class Missionary(models.Model):
     church = models.ForeignKey(
         Church, on_delete=models.CASCADE)
     fullName = models.CharField(max_length=80, null=False, blank=False)
-    adress = models.ForeignKey(Adress, on_delete=models.CASCADE, null=False)
+    adress = models.ForeignKey(
+        Adress, on_delete=models.CASCADE, null=True, blank=True)

@@ -13,7 +13,9 @@ user_api_router.register(
 )
 urlpatterns = [
     path('user/api/<str:email>/checkEmail/',
-         views.checkEmail.as_view(), name='checkEmail')
+         views.checkEmail.as_view(), name='checkEmail'),
+    path('user/api/<str:username>/checkUsername/',
+         views.checkUsername.as_view(), name='checkUsername')
 ]
 
 urlpatterns += user_api_router.urls

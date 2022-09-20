@@ -1,8 +1,5 @@
-from cgitb import lookup
-from codecs import lookup_error
 
 from rest_framework import generics
-from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
@@ -28,6 +25,22 @@ class checkEmail(generics.RetrieveAPIView):
         print('EMAIL:', email)
         try:
             a = UserModel.objects.filter(email=email).exists()
+        except UserModel.DoesNotExist:
+            a = False
+
+        return Response({'check': a})
+
+
+class checkUsername(generics.RetrieveAPIView):
+    lookup_field = 'username'
+    lookup_url_kwarg = 'username'
+    queryset = UserModel.objects.all()
+    serializer = UserSerializer
+
+    def get(self, request, username, *args, **kwargs):
+        print('EMAIL:', username)
+        try:
+            a = UserModel.objects.filter(username=username).exists()
         except UserModel.DoesNotExist:
             a = False
 

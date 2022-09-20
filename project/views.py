@@ -1,5 +1,6 @@
 
 
+from church.models import Church
 from informations.models import Adress
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -16,18 +17,10 @@ class ProjectApi (ModelViewSet):
     def create(self, request, *args, **kwargs):
         post_data = request.data
 
-        print(post_data)
-        new_user = UserModel.objects.create_superuser(
-            post_data['user']['category'],
-            post_data['user']['username'],
-            True if post_data['user']['can_post'] == "true" else False,
-            post_data["user"]["email"],
-            post_data["user"]["password"]
-        )
-        new_user.save()
+        adressCheck = post_data["id_adress"]
 
-        if (post_data['id_adress'] is not None):
-            adress = Adress.objects.get(id=post_data['id_adress'])
+        if post_data["adress"] is None:
+            adress = Adress.objects.get(id=adressCheck)
         else:
             adress = Adress.objects.create(
                 adress=post_data["adress"]["adress"],
@@ -39,12 +32,25 @@ class ProjectApi (ModelViewSet):
             )
             adress.save()
 
+        new_user = UserModel.objects.create_superuser(
+            post_data['user']['category'],
+            post_data['user']['username'],
+            True,
+            post_data["user"]["email"],
+            post_data["user"]["password"]
+        )
+
+        church = Church.objects.get(id=post_data['id_church'])
+
         new_Project = Project.objects.create(
             user=new_user,
             adress=adress,
-            cnpj=post_data['cnpj'],
+            church=church,
+            id_church=post_data['id_church'],
+            id_adress=post_data['id_adress'],
             name=post_data['name']
         )
+
         new_Project.save()
         serializer = ProjectSerializer(new_Project)
 

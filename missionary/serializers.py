@@ -7,7 +7,7 @@ from .models import Missionary
 
 class MissionarySerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    adress = AdressSerializer().allow_null
+    adress = AdressSerializer()
 
     class Meta:
         model = Missionary

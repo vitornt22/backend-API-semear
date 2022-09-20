@@ -8,8 +8,8 @@ from user.models import UserModel
 class Missionary(models.Model):
     user = models.OneToOneField(UserModel, on_delete=models.CASCADE)
     id_church = models.IntegerField()
-    id_adress = models.IntegerField(null=True, blank=True)
+    id_adress = models.IntegerField(null=False)
     church = models.ForeignKey(
         Church, on_delete=models.CASCADE)
     fullName = models.CharField(max_length=80, null=False, blank=False)
-    adress = models.ForeignKey(Adress, on_delete=models.CASCADE)
+    adress = models.ForeignKey(Adress, on_delete=models.CASCADE, null=False)

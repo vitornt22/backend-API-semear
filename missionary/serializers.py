@@ -1,3 +1,4 @@
+from informations.serializers import AdressSerializer
 from rest_framework import serializers
 from user.serializers import UserSerializer
 
@@ -6,6 +7,7 @@ from .models import Missionary
 
 class MissionarySerializer(serializers.ModelSerializer):
     user = UserSerializer()
+    adress = AdressSerializer()
 
     class Meta:
         model = Missionary

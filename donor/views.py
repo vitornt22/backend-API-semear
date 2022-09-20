@@ -25,7 +25,7 @@ class DonorApi (ModelViewSet):
         new_user.save()
         new_donor = Donor.objects.create(
             user=new_user,
-            fullname=post_data['name']
+            fullname=post_data['fullname']
         )
         new_donor.save()
 

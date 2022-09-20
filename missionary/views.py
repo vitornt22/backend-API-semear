@@ -27,7 +27,7 @@ class MissionaryApi (ModelViewSet):
         )
         new_user.save()
 
-        if (post_data['id_adress'] is not None):
+        if (post_data['id_adress'] != 0):
             adress = Adress.objects.get(id=post_data['id_adress'])
         else:
             adress = Adress.objects.create(
@@ -41,6 +41,7 @@ class MissionaryApi (ModelViewSet):
             adress.save()
 
         church = Church.objects.get(id=post_data['church'])
+        print('CHURCH: ', post_data['church'])
 
         new_Missionary = Missionary.objects.create(
             user=new_user,

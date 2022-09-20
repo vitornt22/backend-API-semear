@@ -17,9 +17,9 @@ class MissionaryApi (ModelViewSet):
     def create(self, request, *args, **kwargs):
         post_data = request.data
 
-        adressCheck = post_data["adress"]["id"]
+        adressCheck = post_data["id_adress"]
 
-        if adressCheck != 0:
+        if post_data["adress"] is None:
             adress = Adress.objects.get(id=adressCheck)
         else:
             adress = Adress.objects.create(

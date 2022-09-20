@@ -1,7 +1,5 @@
 
 
-from operator import pos
-
 from church.models import Church
 from informations.models import Adress
 from rest_framework.response import Response
@@ -44,7 +42,6 @@ class MissionaryApi (ModelViewSet):
         new_user.save()
 
         church = Church.objects.get(id=post_data['church'])
-        print('CHURCH: ', post_data['church'])
 
         new_Missionary = Missionary.objects.create(
             user=new_user,

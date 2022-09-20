@@ -6,6 +6,8 @@ from .models import Missionary
 
 class MissionarySerializer(serializers.ModelSerializer):
     user = UserSerializer()
+    id_adress = serializers.IntegerField(required=False, null=True, blank=True)
+    church = serializers.IntegerField(required=False, null=True, blank=True)
 
     class Meta:
         model = Missionary

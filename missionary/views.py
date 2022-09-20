@@ -39,9 +39,8 @@ class MissionaryApi (ModelViewSet):
             post_data["user"]["email"],
             post_data["user"]["password"]
         )
-        new_user.save()
 
-        church = Church.objects.get(id=post_data['church'])
+        church = Church.objects.get(id=post_data['id_church'])
 
         new_Missionary = Missionary.objects.create(
             user=new_user,

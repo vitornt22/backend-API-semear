@@ -16,11 +16,11 @@ class DonorApi (ModelViewSet):
         post_data = request.data
 
         new_user = UserModel.objects.create_superuser(
-            post_data["user.category"],
-            post_data["user.username"],
+            post_data["user"]["category"],
+            post_data["user"]["username"],
             False,
-            post_data["user.email"],
-            post_data["user.password"]
+            post_data["user"]["email"],
+            post_data["user"]["password"]
         )
         new_user.save()
         new_donor = Donor.objects.create(

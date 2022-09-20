@@ -1,5 +1,7 @@
 
 
+from operator import pos
+
 from church.models import Church
 from informations.models import Adress
 from rest_framework.response import Response
@@ -17,18 +19,10 @@ class MissionaryApi (ModelViewSet):
     def create(self, request, *args, **kwargs):
         post_data = request.data
 
-        print(post_data)
-        new_user = UserModel.objects.create_superuser(
-            post_data['user']['category'],
-            post_data['user']['username'],
-            True,
-            post_data["user"]["email"],
-            post_data["user"]["password"]
-        )
-        new_user.save()
+        adressCheck = post_data["adress"]["id"]
 
-        if (post_data['id_adress'] != 0):
-            adress = Adress.objects.get(id=post_data['id_adress'])
+        if adressCheck != 0:
+            adress = Adress.objects.get(id=adressCheck)
         else:
             adress = Adress.objects.create(
                 adress=post_data["adress"]["adress"],
@@ -39,6 +33,15 @@ class MissionaryApi (ModelViewSet):
                 district=post_data["adress"]['district']
             )
             adress.save()
+
+        new_user = UserModel.objects.create_superuser(
+            post_data['user']['category'],
+            post_data['user']['username'],
+            True,
+            post_data["user"]["email"],
+            post_data["user"]["password"]
+        )
+        new_user.save()
 
         church = Church.objects.get(id=post_data['church'])
         print('CHURCH: ', post_data['church'])

@@ -46,6 +46,7 @@ class MissionaryApi (ModelViewSet):
             user=new_user,
             adress=adress,
             church=church,
+            id_church=post_data['id_church'],
             id_adress=post_data['id_adress'],
             fullName=post_data['fullName']
         )

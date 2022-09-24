@@ -19,6 +19,8 @@ urlpatterns = [
 
     path('user/api/<str:username>/checkUsername/',
          views.checkUsername.as_view(), name='checkUsername'),
+    path('user/api/<str:username>/getUserData/',
+         views.getCategory.as_view(), name='getCategory'),
 
     path('user/api/token/',
          TokenObtainPairView.as_view(), name='token_obtain_par'),

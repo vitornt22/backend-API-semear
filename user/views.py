@@ -1,5 +1,5 @@
-
-from rest_framework import generics
+# flake8: noqa: E501
+from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
@@ -45,3 +45,21 @@ class checkUsername(generics.RetrieveAPIView):
             a = False
 
         return Response({'check': a})
+
+
+class getCategory(generics.RetrieveAPIView):
+    lookup_field = 'username'
+    lookup_url_kwarg = 'username'
+    queryset = UserModel.objects.all()
+    serializer = UserSerializer
+
+    def get(self, request, username, *args, **kwargs):
+        print('EMAIL:', username)
+
+        try:
+            a = UserModel.objects.get(username=username)
+            serializer = UserSerializer(a).data
+            print('SERIALIZER')
+            return Response({'category': serializer}, status=status.HTTP_200_OK)
+        except UserModel.DoesNotExist:
+            return Response({'category': serializer}, status=status.HTTP_404_NOT_FOUND)

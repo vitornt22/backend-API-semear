@@ -51,7 +51,6 @@ class checkUsername(generics.RetrieveAPIView):
 class getCategory(generics.RetrieveAPIView):
     lookup_field = 'email'
     lookup_url_kwarg = 'email'
-    permission_classes = []
     queryset = UserModel.objects.all()
     serializer = UserSerializer
 

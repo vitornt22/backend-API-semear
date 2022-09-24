@@ -48,16 +48,16 @@ class checkUsername(generics.RetrieveAPIView):
 
 
 class getCategory(generics.RetrieveAPIView):
-    lookup_field = 'username'
-    lookup_url_kwarg = 'username'
+    lookup_field = 'email'
+    lookup_url_kwarg = 'email'
     queryset = UserModel.objects.all()
     serializer = UserSerializer
 
-    def get(self, request, username, *args, **kwargs):
-        print('EMAIL:', username)
+    def get(self, request, email, *args, **kwargs):
+        print('EMAIL:', email)
 
         try:
-            a = UserModel.objects.get(username=username)
+            a = UserModel.objects.get(email=email)
             serializer = UserSerializer(a).data
             print('SERIALIZER')
             return Response({'category': serializer}, status=status.HTTP_200_OK)

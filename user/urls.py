@@ -19,7 +19,7 @@ urlpatterns = [
 
     path('user/api/<str:username>/checkUsername/',
          views.checkUsername.as_view(), name='checkUsername'),
-    path('user/api/<str:username>/getUserData/',
+    path('user/api/<str:email>/getUserData/',
          views.getCategory.as_view(), name='getCategory'),
 
     path('user/api/token/',

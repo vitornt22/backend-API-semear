@@ -61,6 +61,6 @@ class getCategory(generics.RetrieveAPIView):
             a = UserModel.objects.get(email=email)
             serializer = UserSerializer(a).data
             print('SERIALIZER')
-            return Response({'category': serializer}, status=status.HTTP_200_OK)
+            return Response({'user': serializer}, status=status.HTTP_200_OK)
         except UserModel.DoesNotExist:
-            return Response({'category': serializer}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'user': None}, status=status.HTTP_404_NOT_FOUND)

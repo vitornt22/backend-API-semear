@@ -1,5 +1,6 @@
 # flake8: noqa: E501
 from rest_framework import generics, status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
@@ -50,6 +51,7 @@ class checkUsername(generics.RetrieveAPIView):
 class getCategory(generics.RetrieveAPIView):
     lookup_field = 'email'
     lookup_url_kwarg = 'email'
+    permission_classes = []
     queryset = UserModel.objects.all()
     serializer = UserSerializer
 

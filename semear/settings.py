@@ -75,7 +75,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://example.com",
     "https://sub.example.com",
     "http://localhost:8080",
-    "http://localhost:"
+    "http://localhost:7357/#/"
 ]
 
 MIDDLEWARE = [

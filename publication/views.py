@@ -1,3 +1,4 @@
+
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from user.models import UserModel
@@ -17,12 +18,13 @@ class PublicationApi (ModelViewSet):
         print("REQUEST PUBLICATION", request.data)
 
         try:
-            a = UserModel.objects.get(id=post_data['id'])
+            a = UserModel.objects.get(id=post_data['id_user'])
         except UserModel.DoesNotExist:
-            a = UserModel.objects.get(id=1)
+            a = UserModel.objects.get(id=3)
 
         new_Publication = Publication.objects.create(
             user=a,
+            id_user=post_data['id_user'],
             upload=request.FILES['upload'],
             legend=post_data['legend'],
             is_accountability=False

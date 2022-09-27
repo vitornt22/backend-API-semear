@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     # apps
     'user', 'church', 'donor',
-    'missionary', 'project', 'informations'
+    'missionary', 'project', 'informations',
+    'publication',
 ]
 
 REST_FRAMEWORK = {
@@ -75,7 +76,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://example.com",
     "https://sub.example.com",
     "http://localhost:8080",
-    "http://localhost:7357/#/"
+    "http://localhost:7357"
 ]
 
 MIDDLEWARE = [

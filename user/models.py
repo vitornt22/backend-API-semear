@@ -79,19 +79,3 @@ class UserModel (AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
-
-
-class Adress (models.Model):
-
-    id = models.BigAutoField(primary_key=True)
-    adress = models.CharField(
-        blank=False, null=False, verbose_name='adress', max_length=100)
-    district = models.CharField(
-        blank=False, null=False, verbose_name='district', max_length=15)
-    zip_code = models.CharField(
-        blank=False, null=False, verbose_name='zip_code', max_length=9)
-    city = models.CharField(
-        blank=False, null=False, verbose_name='city', max_length=60)
-    state = models.CharField(
-        verbose_name='uf',  blank=True, null=True, max_length=2, choices=ESTADOS)
-    number = models.IntegerField(blank=True, null=True)

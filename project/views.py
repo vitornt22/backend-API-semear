@@ -20,8 +20,8 @@ class ProjectApi (ModelViewSet):
     @action(detail=True, methods=['GET'], )
     def getprojectData(self, request, pk):
         try:
-            user = UserModel.objects.filter(id=pk).first
-            project = Project.objects.filter(user=user).first
+            user = UserModel.objects.filter(id=pk).first()
+            project = Project.objects.filter(user=user).first()
             return Response(ProjectSerializer(project).data, status=status.HTTP_200_OK)
         except:
             return Response({}, status=status.HTTP_400_BAD_REQUEST)

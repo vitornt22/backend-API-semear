@@ -1,5 +1,4 @@
-
-
+# flake8: noqa: E501
 from informations.models import PIX, Adress, BankData
 from rest_framework import generics, status
 from rest_framework.decorators import action
@@ -15,16 +14,24 @@ class ChurchApi (ModelViewSet):
     queryset = Church.objects.all()
     serializer_class = ChurchSerializer
 
+    @action(detail=True, methods=['get'], )
+    def getchurchData(request, id):
+        try:
+            user = UserModel.objects.get(id=id)
+            church = Church.objects.get(user=user)
+            return Response(ChurchSerializer(church).data, status=status.HTTP_200_OK)
+        except:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+
     @action(methods=['get'], detail=True)
     def getChurch(self, request, pk):
 
         try:
             a = Church.objects.get(cnpj=pk)
-        except Church.DoesNotExist:
-            return Response({'error': True})
+            return Response(ChurchSerializer(a).data, status=status.HTTP_200_OK)
 
-        print('AA: ', a)
-        return Response(ChurchSerializer(a).data, status=status.HTTP_200_OK)
+        except Church.DoesNotExist:
+            return Response({'error': True}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=['get'], detail=True, )
     def checkCnpj(self, request, pk):

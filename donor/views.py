@@ -1,5 +1,6 @@
-
-
+# flake8: noqa E722, E501
+from rest_framework import status
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from user.models import UserModel
@@ -11,6 +12,15 @@ from .serializers import DonorSerializer
 class DonorApi (ModelViewSet):
     queryset = Donor.objects.all()
     serializer_class = DonorSerializer
+
+    @action(detail=True, methods=['get'], )
+    def getdonorData(request, id):
+        try:
+            user = UserModel.objects.get(id=id)
+            church = Donor.objects.get(user=user)
+            return Response(DonorSerializer(church).data, status=status.HTTP_200_OK)
+        except:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
     def create(self, request, *args, **kwargs):
         post_data = request.data

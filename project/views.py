@@ -1,18 +1,30 @@
 
 
+# flake8: noqa E722, E501
 from church.models import Church
 from informations.models import Adress
+from rest_framework import status
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from user.models import UserModel
 
-from .models import Follower, Project
+from .models import Project
 from .serializers import ProjectSerializer
 
 
 class ProjectApi (ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+
+    @action(detail=True, methods=['get'], )
+    def getprojectData(request, id):
+        try:
+            user = UserModel.objects.get(id=id)
+            church = Project.objects.get(user=user)
+            return Response(ProjectSerializer(church).data, status=status.HTTP_200_OK)
+        except:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
     def list(self, request, *args, **kwargs):
         queryset = Project.objects.all()

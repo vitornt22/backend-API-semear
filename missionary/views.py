@@ -1,7 +1,10 @@
 
+# flake8: noqa E722, E501
 
 from church.models import Church
 from informations.models import Adress
+from rest_framework import status
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from user.models import UserModel
@@ -13,6 +16,15 @@ from .serializers import MissionarySerializer
 class MissionaryApi (ModelViewSet):
     queryset = Missionary.objects.all()
     serializer_class = MissionarySerializer
+
+    @action(detail=True, methods=['get'], )
+    def getmissionaryData(request, id):
+        try:
+            user = UserModel.objects.get(id=id)
+            church = Missionary.objects.get(user=user)
+            return Response(MissionarySerializer(church).data, status=status.HTTP_200_OK)
+        except:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
     def create(self, request, *args, **kwargs):
         post_data = request.data

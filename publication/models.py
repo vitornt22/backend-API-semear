@@ -4,6 +4,7 @@ from user.models import UserModel
 
 
 # Create your models here.
+# Create your models here.j
 class Publication(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True)
     id_user = models.IntegerField()

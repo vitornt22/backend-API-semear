@@ -58,7 +58,7 @@ class ProjectApi (ModelViewSet):
             id_adress=post_data['id_adress'],
             name=post_data['name'],
         )
-        new_Project.followers.add([])
+        new_Project.followers.set([])
 
         new_Project.save()
         serializer = ProjectSerializer(

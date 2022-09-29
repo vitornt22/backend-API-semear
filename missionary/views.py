@@ -20,9 +20,12 @@ class MissionaryApi (ModelViewSet):
     @action(detail=True, methods=['get'], )
     def getmissionaryData(request, pk):
         try:
-            user = UserModel.objects.get(id=pk)
-            church = Missionary.objects.get(user=user)
-            return Response(MissionarySerializer(church).data, status=status.HTTP_200_OK)
+            user = UserModel.objects.get(pk=pk)
+            missionary = Missionary.objects.get(user=user)
+            if missionary is not None:
+                return Response(MissionarySerializer(missionary).data, status=status.HTTP_200_OK)
+            else:
+                return Response({}, status=status.HTTP_400_BAD_REQUEST)
         except:
             return Response({}, status=status.HTTP_400_BAD_REQUEST)
 

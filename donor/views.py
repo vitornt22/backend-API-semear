@@ -17,8 +17,12 @@ class DonorApi (ModelViewSet):
     def getdonorData(request, pk):
         try:
             user = UserModel.objects.get(id=pk)
-            church = Donor.objects.get(user=user)
-            return Response(DonorSerializer(church).data, status=status.HTTP_200_OK)
+            donor = Donor.objects.get(user=user)
+
+            if donor is not None:
+                return Response(DonorSerializer(donor).data, status=status.HTTP_200_OK)
+            else:
+                return Response({}, status=status.HTTP_400_BAD_REQUEST)
         except:
             return Response({}, status=status.HTTP_400_BAD_REQUEST)
 

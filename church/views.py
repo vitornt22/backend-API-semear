@@ -19,7 +19,11 @@ class ChurchApi (ModelViewSet):
         try:
             user = UserModel.objects.get(id=pk)
             church = Church.objects.get(user=user)
-            return Response(ChurchSerializer(church).data, status=status.HTTP_200_OK)
+
+            if church is not None:
+                return Response(ChurchSerializer(church).data, status=status.HTTP_200_OK)
+            else:
+                return Response({}, status=status.HTTP_400_BAD_REQUEST)
         except:
             return Response({}, status=status.HTTP_400_BAD_REQUEST)
 

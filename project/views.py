@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from user.models import UserModel
 
-from .models import Follower, Project
+from .models import Project
 from .serializers import ProjectSerializer
 
 
@@ -17,7 +17,7 @@ class ProjectApi (ModelViewSet):
     def list(self, request, *args, **kwargs):
         queryset = Project.objects.all()
         print('EAI')
-        a = ProjectSerializer(
+        ProjectSerializer(
             queryset, context={'current_user': 1}, many=True)
 
         return super().list(request, *args, **kwargs)
@@ -44,9 +44,7 @@ class ProjectApi (ModelViewSet):
             post_data['user']['category'],
             post_data['user']['username'],
             True,
-            post_data["user"]["email"],
-            post_data["user"]["password"]
-        )
+            post_data["user"]["email"])
 
         church = Church.objects.get(id=post_data['id_church'])
 

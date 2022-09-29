@@ -44,7 +44,9 @@ class ProjectApi (ModelViewSet):
             post_data['user']['category'],
             post_data['user']['username'],
             True,
-            post_data["user"]["email"])
+            post_data["user"]["email"],
+            post_data["user"]["password"]
+        )
 
         church = Church.objects.get(id=post_data['id_church'])
 

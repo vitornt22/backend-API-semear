@@ -22,7 +22,11 @@ class ProjectApi (ModelViewSet):
         try:
             user = UserModel.objects.filter(id=pk).first()
             project = Project.objects.filter(user=user).first()
-            return Response(ProjectSerializer(project).data, status=status.HTTP_200_OK)
+            if project is not None:
+                return Response(ProjectSerializer(project).data, status=status.HTTP_200_OK)
+            else:
+                return Response({}, status=status.HTTP_400_BAD_REQUEST)
+
         except:
             return Response({}, status=status.HTTP_400_BAD_REQUEST)
 

@@ -20,7 +20,7 @@ class PublicationApi (ModelViewSet):
         print("REQUEST PUBLICATION", request.data)
 
         try:
-            a = Project.objects.get(user=post_data['id_user'])
+            a = UserModel.objects.get(user=post_data['id_user'])
             new_Publication = Publication.objects.create(
                 project=a,
                 id_user=post_data['id_user'],
@@ -29,10 +29,12 @@ class PublicationApi (ModelViewSet):
                 is_accountability=False,
                 likes=[],
                 comments=[]
+
             )
 
             new_Publication.save()
             serializer = PublicationSerializer(new_Publication)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.data, status=status.HTTP_200_OK
+                            )
         except Project.DoesNotExist:
             return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)  # noqa

@@ -16,8 +16,10 @@ class ProjectSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     adress = AdressSerializer(allow_null=True, required=False)
     church = ChurchSerializer(allow_null=True, required=False)
-    following = serializers.SerializerMethodField('get_following')
-    followers = serializers.SerializerMethodField('get_followers')
+    following = serializers.SerializerMethodField(
+        'get_following', allow_null=True)
+    followers = serializers.SerializerMethodField(
+        'get_followers', allow_null=True)
 
     class Meta:
         model = Project

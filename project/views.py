@@ -15,7 +15,6 @@ class ProjectApi (ModelViewSet):
     serializer_class = ProjectSerializer
 
     def list(self, request, *args, **kwargs):
-        data = super().list(request, *args, **kwargs)
         queryset = Project.objects.all()
         print('EAI')
         a = ProjectSerializer(
@@ -57,7 +56,9 @@ class ProjectApi (ModelViewSet):
             church=church,
             id_church=post_data['id_church'],
             id_adress=post_data['id_adress'],
-            name=post_data['name']
+            name=post_data['name'],
+            followers=[],
+            following=[]
         )
 
         new_Project.save()

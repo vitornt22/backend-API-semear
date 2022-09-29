@@ -9,6 +9,8 @@ class Publication(models.Model):
     id_user = models.IntegerField()
     likes = models.ManyToManyField(
         UserModel, related_name='likes', through="Like")
+    comments = models.ManyToManyField(
+        UserModel, related_name='comments', through="Comment")
     upload = models.ImageField(blank=True, null=True, upload_to='uploads/')
     legend = models.CharField(max_length=600, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -21,5 +23,13 @@ class Like(models.Model):
     publication = models.ForeignKey(
         Publication, on_delete=models.CASCADE, null=False)
     is_anonymous = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, null=True)
+    publication = models.ForeignKey(
+        Publication, on_delete=models.CASCADE, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

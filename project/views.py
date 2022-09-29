@@ -60,7 +60,6 @@ class ProjectApi (ModelViewSet):
 
         )
 
-        new_Project.followers.add([])
         new_Project.save()
         serializer = ProjectSerializer(new_Project)
 

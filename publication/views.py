@@ -27,9 +27,6 @@ class PublicationApi (ModelViewSet):
                 upload=request.FILES['upload'],
                 legend=post_data['legend'],
                 is_accountability=False,
-                likes=[],
-                comments=[]
-
             )
 
             new_Publication.save()

@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from user.models import UserModel
 
-from .models import Project
+from .models import Follower, Project
 from .serializers import ProjectSerializer
 
 
@@ -57,11 +57,12 @@ class ProjectApi (ModelViewSet):
             id_church=post_data['id_church'],
             id_adress=post_data['id_adress'],
             name=post_data['name'],
+
         )
 
+        new_Project.followers.add([])
         new_Project.save()
-        serializer = ProjectSerializer(
-            new_Project, many=True)
+        serializer = ProjectSerializer(new_Project)
 
         return Response(serializer.data)
 

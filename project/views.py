@@ -14,6 +14,15 @@ class ProjectApi (ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
+    def list(self, request, *args, **kwargs):
+        data = super().list(request, *args, **kwargs)
+        queryset = Project.objects.all()
+        print('EAI')
+        a = ProjectSerializer(
+            queryset, context={'current_user': 1}, many=True)
+
+        return super().list(request, *args, **kwargs)
+
     def create(self, request, *args, **kwargs):
         post_data = request.data
 
@@ -52,6 +61,12 @@ class ProjectApi (ModelViewSet):
         )
 
         new_Project.save()
-        serializer = ProjectSerializer(new_Project)
+        serializer = ProjectSerializer(
+            new_Project, many=True)
 
         return Response(serializer.data)
+
+    def get_serializer_context(self):
+        context = super(ProjectApi, self).get_serializer_context()
+        context.update({"current_user": 1})
+        return context

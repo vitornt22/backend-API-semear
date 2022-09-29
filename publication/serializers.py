@@ -5,7 +5,6 @@ from .models import Publication
 
 
 class PublicationSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
 
     class Meta:
         model = Publication

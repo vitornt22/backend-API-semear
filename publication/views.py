@@ -20,7 +20,8 @@ class PublicationApi (ModelViewSet):
         print("REQUEST PUBLICATION", request.data)
 
         try:
-            a = UserModel.objects.get(user=post_data['id_user'])
+            a = Project.objects.get(user=post_data['id_user'])
+
             new_Publication = Publication.objects.create(
                 project=a,
                 id_user=post_data['id_user'],

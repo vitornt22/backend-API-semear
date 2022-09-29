@@ -35,4 +35,4 @@ class PublicationApi (ModelViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK
                             )
         except Project.DoesNotExist:
-            return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)  # noqa
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)  # noqa

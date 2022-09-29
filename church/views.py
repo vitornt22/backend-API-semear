@@ -15,9 +15,9 @@ class ChurchApi (ModelViewSet):
     serializer_class = ChurchSerializer
 
     @action(detail=True, methods=['get'], )
-    def getchurchData(request, id):
+    def getchurchData(request, pk):
         try:
-            user = UserModel.objects.get(id=id)
+            user = UserModel.objects.get(id=pk)
             church = Church.objects.get(user=user)
             return Response(ChurchSerializer(church).data, status=status.HTTP_200_OK)
         except:

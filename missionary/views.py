@@ -18,9 +18,9 @@ class MissionaryApi (ModelViewSet):
     serializer_class = MissionarySerializer
 
     @action(detail=True, methods=['get'], )
-    def getmissionaryData(request, id):
+    def getmissionaryData(request, pk):
         try:
-            user = UserModel.objects.get(id=id)
+            user = UserModel.objects.get(id=pk)
             church = Missionary.objects.get(user=user)
             return Response(MissionarySerializer(church).data, status=status.HTTP_200_OK)
         except:

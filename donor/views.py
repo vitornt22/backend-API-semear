@@ -14,9 +14,9 @@ class DonorApi (ModelViewSet):
     serializer_class = DonorSerializer
 
     @action(detail=True, methods=['get'], )
-    def getdonorData(request, id):
+    def getdonorData(request, pk):
         try:
-            user = UserModel.objects.get(id=id)
+            user = UserModel.objects.get(id=pk)
             church = Donor.objects.get(user=user)
             return Response(DonorSerializer(church).data, status=status.HTTP_200_OK)
         except:

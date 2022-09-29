@@ -18,9 +18,9 @@ class ProjectApi (ModelViewSet):
     serializer_class = ProjectSerializer
 
     @action(detail=True, methods=['get'], )
-    def getprojectData(request, id):
+    def getprojectData(request, pk):
         try:
-            user = UserModel.objects.get(id=id)
+            user = UserModel.objects.get(id=pk)
             church = Project.objects.get(user=user)
             return Response(ProjectSerializer(church).data, status=status.HTTP_200_OK)
         except:

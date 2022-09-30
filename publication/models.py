@@ -1,3 +1,5 @@
+from unittest.util import _MAX_LENGTH
+
 from django.db import models
 from project.models import Project
 from user.models import UserModel
@@ -32,5 +34,6 @@ class Comment(models.Model):
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE, null=True)
     publication = models.ForeignKey(
         Publication, on_delete=models.CASCADE, null=False)
+    comment = models.CharField(max_length=200, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

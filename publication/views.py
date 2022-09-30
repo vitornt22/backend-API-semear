@@ -6,6 +6,7 @@ from rest_framework.viewsets import ModelViewSet
 from user.models import UserModel
 
 from .models import Publication
+from .pagination import TimelineResultsPagination
 from .serializers import PublicationSerializer
 
 # Create your views here.
@@ -14,6 +15,7 @@ from .serializers import PublicationSerializer
 class PublicationApi (ModelViewSet):
     queryset = Publication.objects.all()
     serializer_class = PublicationSerializer
+    pagination_class = TimelineResultsPagination
 
     def create(self, request, *args, **kwargs):
         post_data = request.data

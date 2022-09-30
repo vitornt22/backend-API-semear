@@ -59,8 +59,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
 
-    ]
 }
 # Change secret key, passing in to the .env file, when the project is finish
 SIMPLE_JWT = {

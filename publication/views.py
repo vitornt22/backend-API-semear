@@ -15,6 +15,7 @@ from .serializers import PublicationSerializer
 class PublicationApi (ModelViewSet):
     queryset = Publication.objects.all()
     serializer_class = PublicationSerializer
+    pagination_class = TimelineResultsPagination
 
     def create(self, request, *args, **kwargs):
         post_data = request.data

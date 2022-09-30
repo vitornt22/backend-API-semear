@@ -82,6 +82,7 @@ CORS_ALLOWED_ORIGINS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
@@ -162,6 +163,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'base_static')
 ]
 MEDIA_URL = '/media/'
+MEDIA_URL = os.path.join(BASE_DIR, 'media')
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"  # new
 
 
 # Default primary key field type

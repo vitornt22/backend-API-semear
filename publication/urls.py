@@ -4,9 +4,23 @@ from . import views
 
 app_name = "publication"
 
-user_api_router = SimpleRouter()
-user_api_router.register(
+publication_api_router = SimpleRouter()
+publication_api_router.register(
     'publication/api', views.PublicationApi,
     basename='Publication'
 )
-urlpatterns = user_api_router.urls
+
+comment_api_router = SimpleRouter()
+comment_api_router.register(
+    'comment/api', views.CommentApi,
+    basename='Comment'
+)
+
+like_api_router = SimpleRouter()
+like_api_router.register(
+    'like/api', views.LikeApi,
+    basename='Like'
+)
+
+urlpatterns = publication_api_router.urls + \
+    like_api_router.urls + comment_api_router.urls

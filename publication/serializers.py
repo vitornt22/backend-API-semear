@@ -1,4 +1,6 @@
 
+from dataclasses import field
+
 from project.serializers import ProjectSerializer
 from rest_framework import serializers
 
@@ -12,6 +14,7 @@ class LikeSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Comment
         fields = '__all__'

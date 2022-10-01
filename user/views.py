@@ -1,5 +1,8 @@
 # flake8: noqa: E501
+import publication
+from publication.models import Like
 from rest_framework import generics, status
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -11,6 +14,15 @@ from .serializers import UserSerializer
 class UserApi (ModelViewSet):
     queryset = UserModel.objects.all()
     serializer_class = UserSerializer
+
+    @action(methods=['GET'], detail=True)
+    def getButtonLike(self, request, pk, *args, **kwargs):
+        pub = int(kwargs['target_id'])
+        print(pub)
+        if Like.objects.filter(user=pk, publication=pub).exists():
+            return Response({"label": "Descurtir"})
+        else:
+            return Response({"label": "Descurtir"})
 
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)

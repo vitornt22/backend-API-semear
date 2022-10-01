@@ -1,5 +1,4 @@
 
-from dataclasses import field
 
 from project.serializers import ProjectSerializer
 from rest_framework import serializers

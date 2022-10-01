@@ -21,7 +21,8 @@ urlpatterns = [
          views.checkUsername.as_view(), name='checkUsername'),
     path('user/api/<str:email>/getUserData/',
          views.getCategory.as_view(), name='getCategory'),
-
+    path('users/<int:pk>/getButtonLike/<int:target_id>/',
+         views.UserApi.as_view({"get": "getButtonLike"})),
     path('user/api/token/',
          TokenObtainPairView.as_view(), name='token_obtain_par'),
     path('user/api/token/refresh/',

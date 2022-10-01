@@ -1,7 +1,4 @@
 
-from argparse import Action
-from distutils.errors import LibError
-from operator import pos
 
 from project.models import Project
 from rest_framework import status

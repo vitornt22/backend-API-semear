@@ -162,8 +162,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'base_static')
 ]
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Default primary key field type
@@ -176,5 +174,11 @@ django_on_heroku.settings(locals())
 AWS_ACCESS_KEY_ID = 'AKIAZKQ2WUMVOM5FYOGH'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'uploads-semear'
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_QUERYSTRING_AUTH = False
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"  # new

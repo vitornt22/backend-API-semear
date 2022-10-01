@@ -14,7 +14,7 @@ class Publication(models.Model):
         UserModel, related_name='likes', through="Like")
     comments = models.ManyToManyField(
         UserModel, related_name='comments', through="Comment")
-    upload = models.ImageField(blank=True, null=True, upload_to='uploads/')
+    upload = models.ImageField(blank=True, null=True, upload_to='media/')
     legend = models.CharField(max_length=600, blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

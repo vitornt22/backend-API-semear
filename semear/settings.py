@@ -173,4 +173,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 django_on_heroku.settings(locals())
 
+AWS_ACCESS_KEY_ID = 'AKIAZKQ2WUMVOM5FYOGH'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'uploads-semear'
+
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"  # new

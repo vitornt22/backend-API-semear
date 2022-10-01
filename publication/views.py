@@ -34,7 +34,7 @@ class PublicationApi (ModelViewSet):
     @action(detail=True, methods=['GET'])
     def getLikesNumber(self, request, pk,   * args, **kwargs):
         try:
-            publication = Publication.objects.filter(pk=pk).first()
+            publication = Publication.objects.get(pk=pk)
             number = Like.objects.filter(publication=publication).count()
 
             return Response({"number": number}, status=status.HTTP_200_OK)

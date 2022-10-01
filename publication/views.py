@@ -34,12 +34,12 @@ class PublicationApi (ModelViewSet):
     @action(detail=True, methods=['GET'])
     def getLikesNumber(self, request, pk,   * args, **kwargs):
         try:
-            publication = Publication.objects.get(pk=pk)
+            publication = Publication.objects.filter(pk=pk).first()
             number = Like.objects.filter(publication=publication).count()
 
             return Response({"number": number}, status=status.HTTP_200_OK)
         except Comment.DoesNotExist:
-            return Response({'number': 0}, status=status.HTTP_200_OK)
+            return Response({'number': 1020}, status=status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):
         post_data = request.data

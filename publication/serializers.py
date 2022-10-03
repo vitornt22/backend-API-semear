@@ -33,11 +33,11 @@ class PublicationSerializer(serializers.ModelSerializer):
     def get_likes(self, obj):
         id = obj.id
         likes = Like.objects.filter(
-            id=id)
+            publication=id)
         return LikeSerializer(likes, many=True).data
 
     def get_comments(self, obj):
         id = obj.id
         comments = Comment.objects.filter(
-            id=id)
+            publication=id)
         return CommentSerializer(comments, many=True).data

@@ -24,8 +24,7 @@ class PublicationApi (ModelViewSet):
     @action(detail=True, methods=['GET'])
     def getCommentsNumber(self, request, pk,   * args, **kwargs):
         try:
-            publication = Publication.objects.filter(pk=pk).first()
-            number = Comment.objects.filter(publication=publication).count()
+            number = Comment.objects.filter(publication=pk).count()
 
             return Response({"number": number}, status=status.HTTP_200_OK)
         except Comment.DoesNotExist:
@@ -38,7 +37,7 @@ class PublicationApi (ModelViewSet):
             number = Like.objects.filter(publication=pk).count()
 
             return Response({"number": number}, status=status.HTTP_200_OK)
-        except Comment.DoesNotExist:
+        except Like.DoesNotExist:
             return Response({'number': 1020}, status=status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):

@@ -97,6 +97,16 @@ class LikeApi (ModelViewSet):
     serializer_class = LikeSerializer
     ordering = ('created_at')
 
+    @action(methods=['GET'], detail=True)
+    def deleteLike(self, request, pk, *args, **kwargs):
+        pub = int(kwargs['publication'])
+        if Like.objects.filter(user=pk, publication=pub).exists():
+            like = Like.objects.get(user=pk, publication=pub)
+            like.delete()
+            return Response({}, status=status.HTTP_200_OK)
+        else:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+
     def create(self, request, *args, **kwargs):
         post_data = request.data
         print("REQUEST PUBLICATION", request.data)

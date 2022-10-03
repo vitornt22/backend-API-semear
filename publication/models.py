@@ -21,7 +21,8 @@ class Publication(models.Model):
 
 
 class Like(models.Model):
-    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(
+        UserModel, on_delete=models.CASCADE, null=True)
     publication = models.ForeignKey(
         Publication, on_delete=models.CASCADE, null=False)
     is_anonymous = models.BooleanField(default=False)

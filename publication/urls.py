@@ -1,3 +1,4 @@
+from django.urls import path
 from rest_framework.routers import SimpleRouter
 
 from . import views
@@ -21,6 +22,9 @@ like_api_router.register(
     'like/api', views.LikeApi,
     basename='Like'
 )
-
-urlpatterns = publication_api_router.urls + \
+urlpatterns = [
+    path('like/api/<int:pk>/deleteLike/<int:publication>/',
+         views.LikeApi.as_view({"get": "deleteLike"})),
+]
+urlpatterns += publication_api_router.urls + \
     like_api_router.urls + comment_api_router.urls

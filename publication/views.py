@@ -69,6 +69,14 @@ class CommentApi (ModelViewSet):
     serializer_class = CommentSerializer
     ordering = ('created_at')
 
+    @action(methods=['GET'], detail=True, )
+    def getComments(self, request, pk, *args, **kwargs):
+        if Publication.objects.filter(pk=pk).exists():
+            comment = Comment.objects.filter(publication=pk)
+            return Response(CommentSerializer(comment).data, status=status.HTTP_200_OK)  # noqa
+        else:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+
     def create(self, request, *args, **kwargs):
         post_data = request.data
         print("REQUEST PUBLICATION", request.data)

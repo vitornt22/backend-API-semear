@@ -18,7 +18,7 @@ class MissionaryApi (ModelViewSet):
     serializer_class = MissionarySerializer
 
     @action(detail=True, methods=['get'], )
-    def getmissionaryData(request, pk):
+    def getmissionaryData(self, request, pk):
         try:
             user = UserModel.objects.get(pk=pk)
             missionary = Missionary.objects.get(user=user)

@@ -14,7 +14,7 @@ class DonorApi (ModelViewSet):
     serializer_class = DonorSerializer
 
     @action(detail=True, methods=['get'], )
-    def getdonorData(request, pk):
+    def getdonorData(self, request, pk):
         try:
             user = UserModel.objects.get(id=pk)
             donor = Donor.objects.get(user=user)

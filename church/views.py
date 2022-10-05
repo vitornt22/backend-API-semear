@@ -15,7 +15,7 @@ class ChurchApi (ModelViewSet):
     serializer_class = ChurchSerializer
 
     @action(detail=True, methods=['get'], )
-    def getchurchData(request, pk):
+    def getchurchData(self, request, pk):
         try:
             user = UserModel.objects.get(id=pk)
             church = Church.objects.get(user=user)

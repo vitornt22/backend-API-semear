@@ -133,7 +133,12 @@ class LikeApi (ModelViewSet):
             )
 
             new_comment.save()
-            serializer = LikeSerializer(new_comment)
+
+            publication = Publication.objects.get(
+                id=post_data['publication'])
+
+            serializer = PublicationSerializer(publication)
+
             return Response(serializer.data, status=status.HTTP_200_OK
                             )
         except Like.DoesNotExist:

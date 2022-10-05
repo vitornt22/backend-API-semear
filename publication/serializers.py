@@ -2,6 +2,7 @@
 
 from project.serializers import ProjectSerializer
 from rest_framework import serializers
+from user.serializers import UserSerializer
 
 from .models import Comment, Like, Publication
 
@@ -13,6 +14,7 @@ class LikeSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
 
     class Meta:
         model = Comment

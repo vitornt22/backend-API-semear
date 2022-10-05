@@ -110,8 +110,9 @@ class LikeApi (ModelViewSet):
         pub = int(kwargs['publication'])
         if Like.objects.filter(user=pk, publication=pub).exists():
             like = Like.objects.get(user=pk, publication=pub)
-            pub = Publication.objects.get(id=pub)
             like.delete()
+            pub = Publication.objects.get(id=pub)
+
             return Response(PublicationSerializer(pub).data, status=status.HTTP_200_OK)  # noqa
         else:
             return Response({}, status=status.HTTP_400_BAD_REQUEST)

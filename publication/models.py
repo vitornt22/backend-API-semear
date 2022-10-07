@@ -1,13 +1,12 @@
 
 from django.db import models
-from project.models import Project
 from user.models import UserModel
 
 
 # Create your models here.
 # Create your models here.j
 class Publication(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, null=True)
     id_user = models.IntegerField()
     likes = models.ManyToManyField(
         UserModel, related_name='likes', through="Like")

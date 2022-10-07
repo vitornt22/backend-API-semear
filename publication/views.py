@@ -46,10 +46,9 @@ class PublicationApi (ModelViewSet):
 
         try:
             user = UserModel.objects.get(id=post_data['id_user'])
-            a = Project.objects.get(user=user)
 
             new_Publication = Publication.objects.create(
-                project=a,
+                user=user,
                 id_user=post_data['id_user'],
                 upload=request.FILES['upload'],
                 legend=post_data['legend'],
@@ -60,7 +59,7 @@ class PublicationApi (ModelViewSet):
             serializer = PublicationSerializer(new_Publication)
             return Response(serializer.data, status=status.HTTP_200_OK
                             )
-        except Project.DoesNotExist:
+        except UserModel.DoesNotExist:
             return Response({}, status=status.HTTP_400_BAD_REQUEST)  # noqa
 
 

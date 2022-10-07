@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     # apps
     'user', 'church', 'donor',
     'missionary', 'project', 'informations',
-    'publication',
+    'publication', 'transaction', 'notifications'
 ]
 
 REST_FRAMEWORK = {

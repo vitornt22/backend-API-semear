@@ -1,21 +1,18 @@
 from church.serializers import ChurchSerializer
 from informations.serializers import AdressSerializer
 from rest_framework import serializers
-from user.serializers import UserSerializer
+from user.serializers import InformationSerializer, UserSerializer
 
+from .followerserializer import FollowerSerializer
 from .models import Follower, Project
-
-
-class FollowerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Follower
-        fields = '__all__'
 
 
 class ProjectSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     adress = AdressSerializer(allow_null=True, required=False)
     church = ChurchSerializer(allow_null=True, required=False)
+    information = InformationSerializer()
+
     following = serializers.SerializerMethodField(
         'get_following')
     followers = serializers.SerializerMethodField(
@@ -34,5 +31,5 @@ class ProjectSerializer(serializers.ModelSerializer):
     def get_followers(self, obj):
         project = obj.id
         following = Follower.objects.filter(
-            project=project)
+            user2=project)
         return FollowerSerializer(following, many=True).data

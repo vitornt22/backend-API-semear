@@ -9,6 +9,17 @@ ESTADOS = (('AC', 'AC'), ('AL', 'AL'), ('AP', 'AP'), ('AM', 'AM'), ('BA', 'BA'),
            ('SP', 'SP'), ('SE', 'SE'), ('TO', 'TO'))
 
 
+class Information(models.Model):
+    photo_profile = models.ImageField(
+        blank=True, null=True, upload_to='media/')
+    resume = models.CharField(max_length=100, null=True, blank=True)
+    site = models.CharField(max_length=100, null=True, blank=True)
+    whoAreUs = models.CharField(max_length=500, null=True, blank=True)
+    ourObjective = models.CharField(max_length=500, null=True, blank=True)
+    photo1 = models.ImageField(blank=True, null=True, upload_to='media/')
+    photo2 = models.ImageField(blank=True, null=True, upload_to='media/')
+
+
 class UserManager(BaseUserManager):
     def create_user(self, category, username, can_post, email, password=None):
 

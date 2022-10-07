@@ -1,6 +1,6 @@
 from django.db import models
 from informations.models import PIX, Adress, BankData
-from user.models import UserModel
+from user.models import Information, UserModel
 
 # Create your models here.
 
@@ -18,3 +18,6 @@ class Church (models.Model):
         BankData, on_delete=models.CASCADE, null=True, blank=True)
     pix = models.OneToOneField(
         PIX, on_delete=models.CASCADE, null=True, blank=True)
+
+    information = models.ForeignKey(
+        Information, on_delete=models.CASCADE)

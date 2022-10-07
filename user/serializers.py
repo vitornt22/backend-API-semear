@@ -1,9 +1,14 @@
 # flake8: noqa: E501
-from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
-from .models import UserModel
+from .models import Information, UserModel
+
+
+class InformationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Information
+        fields = '__all__'
 
 
 class UserSerializer(serializers.ModelSerializer):

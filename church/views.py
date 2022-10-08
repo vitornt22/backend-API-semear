@@ -93,6 +93,7 @@ class ChurchApi (ModelViewSet):
             cnpj=post_data['cnpj'],
             ministery=post_data['ministery'],
             name=post_data['name']
+
         )
         new_church.save()
         serializer = ChurchSerializer(new_church)

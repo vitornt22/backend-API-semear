@@ -5,6 +5,7 @@ from missionary.serializers import MissionarySerializer
 from project.models import Project
 from project.serializers import ProjectSerializer
 from rest_framework import serializers
+from user.models import UserModel
 from user.serializers import UserSerializer
 
 from .models import Comment, Like, Publication
@@ -40,17 +41,18 @@ class PublicationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_project(self, obj):
-        id = obj.id_user
-        if obj.user.category == 'project':
-            result = Project.objects.get(user=id)
+        user = UserModel.objects.get(id=obj.id_user)
+        if user.category == 'project':
+            result = Project.objects.get(user=user)
             return ProjectSerializer(result).data
         else:
             return None
 
     def get_missionary(self, obj):
-        id = obj.id_user
-        if obj.user.category == 'missionary':
-            result = Missionary.objects.get(user=id)
+        user = UserModel.objects.get(id=obj.id_user)
+
+        if user.category == 'missionary':
+            result = Missionary.objects.get(user=user)
             return MissionarySerializer(result).data
         else:
             return None

@@ -40,7 +40,7 @@ class PublicationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_project(self, obj):
-        id = obj.user.id
+        id = obj.id_user
         if obj.user.category == 'project':
             result = Project.objects.get(user=id)
             return ProjectSerializer(result).data
@@ -48,7 +48,7 @@ class PublicationSerializer(serializers.ModelSerializer):
             return None
 
     def get_missionary(self, obj):
-        id = obj.user.id
+        id = obj.id_user
         if obj.user.category == 'missionary':
             result = Missionary.objects.get(user=id)
             return MissionarySerializer(result).data

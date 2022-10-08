@@ -15,4 +15,4 @@ class Missionary(models.Model):
     adress = models.ForeignKey(
         Adress, on_delete=models.CASCADE, null=True, blank=True)
     information = models.ForeignKey(
-        Information, on_delete=models.CASCADE)
+        Information, on_delete=models.CASCADE, null=True)

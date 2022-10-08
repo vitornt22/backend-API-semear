@@ -15,7 +15,7 @@ class Project (models.Model):
     adress = models.ForeignKey(Adress, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, null=False, blank=False)
     information = models.ForeignKey(
-        Information, on_delete=models.CASCADE)
+        Information, on_delete=models.CASCADE, null=True)
 
 
 class Follower(models.Model):

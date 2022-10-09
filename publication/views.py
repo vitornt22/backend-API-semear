@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from user.models import UserModel
 
+import publication
+
 from .models import Comment, Like, Publication
 from .pagination import TimelineResultsPagination
 from .serializers import (CommentSerializer, LikeSerializer,
@@ -67,6 +69,18 @@ class CommentApi (ModelViewSet):
     queryset = Comment.objects.all().order_by('-created_at')
     serializer_class = CommentSerializer
     ordering = ('created_at')
+
+    @action(methods=['GET'], detail=True)
+    def deleteComment(self, request, pk, *args, **kwargs):
+        pub = int(kwargs['publication'])
+        if Comment.objects.filter(pk=pk).exists():
+            like = Comment.objects.get(id=pk)
+            like.delete()
+            pub = Publication.objects.get(id=pub)
+
+            return Response(PublicationSerializer(pub).data, status=status.HTTP_200_OK)  # noqa
+        else:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=['GET'], detail=True, )
     def getComments(self, request, pk, *args, **kwargs):

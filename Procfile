@@ -1,1 +1,1 @@
-web: gunicorn semear.wsgi --log-file -
+web: gunicorn semear.wsgi:application --log-file - --log-level debug

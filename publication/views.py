@@ -1,13 +1,10 @@
 
 
-from project.models import Project
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from user.models import UserModel
-
-import publication
 
 from .models import Comment, Like, Publication
 from .pagination import TimelineResultsPagination

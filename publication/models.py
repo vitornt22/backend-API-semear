@@ -19,7 +19,7 @@ class Publication(models.Model):
     is_accountability = models.BooleanField(default=False)
 
 
-class PublicationSaved(models.Models):
+class PublicationSaved(models.Model):
     publication = models.ForeignKey(
         Publication, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE, null=True)

@@ -119,6 +119,14 @@ class LikeApi (ModelViewSet):
     ordering = ('created_at')
 
     @action(methods=['GET'], detail=True)
+    def isLiked(self, request, pk, *args, **kwargs):
+        pub = int(kwargs['publication'])
+        if Like.objects.filter(user=pk, publication=pub).exists():
+            return Response({"label": "Descurtir"})
+        else:
+            return Response({"label": "Curtir"})
+
+    @action(methods=['GET'], detail=True)
     def deleteLike(self, request, pk, *args, **kwargs):
         pub = int(kwargs['publication'])
         if Like.objects.filter(user=pk, publication=pub).exists():

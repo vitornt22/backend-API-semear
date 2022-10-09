@@ -64,7 +64,10 @@ class ProjectApi (ModelViewSet):
             post_data["user"]["password"]
         )
 
-        church = Church.objects.get(id=post_data['id_church'])
+        if post_data['id_church']!=0:
+            church = Church.objects.get(id=post_data['id_church'])
+        else:
+            church = Church.objects.get(id=post_data['id_church'])
 
         new_Project = Project.objects.create(
             user=new_user,

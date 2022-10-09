@@ -25,8 +25,10 @@ like_api_router.register(
 urlpatterns = [
     path('like/api/<int:pk>/deleteLike/<int:publication>/',
          views.LikeApi.as_view({"get": "deleteLike"})),
+    path('like/api/<int:pk>/isLiked/<int:publication>/',
+         views.LikeApi.as_view({"get": "isLiked"})),
     path('comment/api/<int:pk>/deleteComment/<int:publication>/',
-         views.CommentApi.as_view({"delete": "deleteComment"})),
+         views.CommentApi.as_view({"get": "deleteComment"})),
 ]
 urlpatterns += publication_api_router.urls + \
     like_api_router.urls + comment_api_router.urls

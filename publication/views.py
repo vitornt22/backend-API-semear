@@ -71,7 +71,7 @@ class CommentApi (ModelViewSet):
     def deleteComment(self, request, pk, *args, **kwargs):
         pub = int(kwargs['publication'])
         if Comment.objects.filter(pk=pk).exists():
-            like = Comment.objects.get(id=pk)
+            like = Comment.objects.get(pk=pk)
             like.delete()
             pub = Publication.objects.get(id=pub)
 

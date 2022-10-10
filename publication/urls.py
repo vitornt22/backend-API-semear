@@ -31,6 +31,8 @@ urlpatterns = [
          views.CommentApi.as_view({"get": "deleteComment"})),
     path('publication/api/<int:pk>/savePublication/<int:publication>/',
          views.PublicationApi.as_view({"get": "savePublication"})),
+    path('publication/api/<int:pk>/unSavePublication/<int:publication>/',
+         views.PublicationApi.as_view({"get": "unSavePublication"})),
 ]
 urlpatterns += publication_api_router.urls + \
     like_api_router.urls + comment_api_router.urls

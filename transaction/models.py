@@ -12,4 +12,4 @@ class Donation(models.Model):
     is_anonymous = models.BooleanField(default=False)
     value = models.FloatField()
     payment_form = models.CharField(max_length=20)
-    voucher = models.ImageField(blank=True, null=True, upload_to='media/')
+   #  voucher = models.ImageField(blank=True, null=True, upload_to='media/')

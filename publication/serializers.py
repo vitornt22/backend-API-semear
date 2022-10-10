@@ -8,7 +8,7 @@ from rest_framework import serializers
 from user.models import UserModel
 from user.serializers import UserSerializer
 
-from .models import Comment, Like, Publication
+from .models import Comment, Like, Publication, PublicationSaved
 
 
 class LikeSerializer(serializers.ModelSerializer):

@@ -23,6 +23,7 @@ class PublicationSaved(models.Model):
     publication = models.ForeignKey(
         Publication, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Like(models.Model):

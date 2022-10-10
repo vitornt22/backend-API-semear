@@ -27,6 +27,7 @@ urlpatterns = [
     path('', include('missionary.urls')),
     path('', include('project.urls')),
     path('', include('publication.urls')),
+    path('', include('transaction.urls')),
     path('api-token-auth/', views.obtain_auth_token, name='api-token-auth'),
 
 ] + static(settings.MEDIA_URL,

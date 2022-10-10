@@ -1,6 +1,8 @@
 # flake8: noqa: E501
 from project.followerserializer import FollowerSerializer
 from project.models import Follower
+from publication.models import PublicationSaved
+from publication.publicationSavedSerializer import PublicationSavedSerializer
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
@@ -16,6 +18,12 @@ class InformationSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     followers = serializers.SerializerMethodField('get_followers')
     following = serializers.SerializerMethodField('get_following')
+    savesPublications = serializers.SerializerMethodField(
+        'get_saved_publications')
+
+    def get_saved_publications(self, obj):
+        publications = PublicationSaved.objects.filter(user=obj.id)
+        return PublicationSavedSerializer(publications, many=True).data
 
     def get_following(self, obj):
         user = obj.id
@@ -35,5 +43,5 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
         fields = ('id', 'username', 'email',
-                  'category', 'can_post', 'password', 'followers', 'following')
+                  'category', 'can_post', 'password', 'followers', 'savesPublications', 'following')
         extra_kwargs = {'password': {'write_only': True}}

@@ -6,7 +6,7 @@ app_name = "transaction"
 
 transaction_api_router = SimpleRouter()
 transaction_api_router.register(
-    'transaction/api', views.transactionApi,
+    'transaction/api', views.TransactionApi,
     basename='transaction'
 )
 urlpatterns = transaction_api_router.urls

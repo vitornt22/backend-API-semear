@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from user.models import UserModel
 
-from .models import Comment, Like, Publication
+from .models import Comment, Like, Publication, PublicationSaved
 from .pagination import TimelineResultsPagination
 from .serializers import (CommentSerializer, LikeSerializer,
                           PublicationSerializer)
@@ -19,6 +19,31 @@ class PublicationApi (ModelViewSet):
     serializer_class = PublicationSerializer
     pagination_class = TimelineResultsPagination
     ordering = ('created_at')
+
+    @action(methods=['GET'], detail=True)
+    def savePublication(self, request, pk, *args, **kwargs):
+        try:
+            pk2 = int(kwargs['publication'])
+            user = UserModel.objects.get(pk=pk)
+            pub = Publication.objects.get(pk=pk2)
+            publicationSaved = PublicationSaved(user=user, publication=pub)
+            publicationSaved.save()
+            return Response({"check": True}, status=status.HTTP_200_OK)
+        except:
+            return Response({"check": False}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['GET'], detail=True)
+    def unSavePublication(self, request, pk, *args, **kwargs):
+        try:
+            pk2 = int(kwargs['publication'])
+            user = UserModel.objects.get(pk=pk)
+            pub = Publication.objects.get(pk=pk2)
+            publicationSaved = PublicationSaved.objects.get(
+                user=user, publication=pub)
+            publicationSaved.delete()
+            return Response({}, status=status.HTTP_200_OK)
+        except:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=['GET'])
     def getCommentsNumber(self, request, pk,   * args, **kwargs):

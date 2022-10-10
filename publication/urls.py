@@ -29,6 +29,8 @@ urlpatterns = [
          views.LikeApi.as_view({"get": "isLiked"})),
     path('comment/api/<int:pk>/deleteComment/<int:publication>/',
          views.CommentApi.as_view({"get": "deleteComment"})),
+    path('publication/api/<int:pk>/savePublication/<int:publication>/',
+         views.PublicationApi.as_view({"get": "savePublication"})),
 ]
 urlpatterns += publication_api_router.urls + \
     like_api_router.urls + comment_api_router.urls

@@ -22,6 +22,24 @@ class FollowerApi(ModelViewSet):
     serializer_class = FollowerSerializer
 
     @action(methods=['GET'], detail=True)
+    def getLabelFollower(self, request, pk, *args, **kwargs):
+        pk2 = int(kwargs['pk2'])
+        user = UserModel.objects.get(pk=pk)
+        user2 = UserModel.objects.get(pk=pk2)
+        if Follower.objects.filter(user=user, user2=user2).exists():
+            return Response({"label": "Deixar de Seguir"})
+        else:
+            return Response({"label": "Seguir"})
+
+    @action(methods=['GET'], detail=True)
+    def isLiked(self, request, pk, *args, **kwargs):
+        pub = int(kwargs['publication'])
+        if Like.objects.filter(user=pk, publication=pub).exists():
+            return Response({"label": "Descurtir"})
+        else:
+            return Response({"label": "Curtir"})
+
+    @action(methods=['GET'], detail=True)
     def setFollower(self, request, pk, *args, **kwargs):
         pk2 = int(kwargs['pk2'])
         user = UserModel.objects.get(pk=pk)

@@ -1,6 +1,8 @@
 
 
 # flake8: noqa E722, E501
+from os import stat
+
 from church.models import Church
 from informations.models import Adress
 from rest_framework import status
@@ -8,6 +10,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from user.models import UserModel
+from user.serializers import UserSerializer
 
 from .followerserializer import FollowerSerializer
 from .models import Follower, Project
@@ -20,17 +23,26 @@ class FollowerApi(ModelViewSet):
 
     @action(methods=['GET'], detail=True)
     def setFollower(self, request, pk, *args, **kwargs):
-        pk2 = int(kwargs['pk2'])
-        user = UserModel.objects.get(pk=pk)
-        user2 = UserModel.objects.get(pk=pk2)
-        follower = Follower.create(user=user, user2=user2)
-        follower.save()
-        if (user.category == 'project'):
-            ...
+        try:
+            pk2 = int(kwargs['pk2'])
+            user = UserModel.objects.get(pk=pk)
+            user2 = UserModel.objects.get(pk=pk2)
+            follower = Follower.create(user=user, user2=user2)
+            follower.save()
+            return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
+        except:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=['GET'], detail=True)
     def unFollower(self, request, pk, *args, **kwargs):
-        user2 = int(kwargs['pk'])
+        try:
+            pk2 = int(kwargs['pk2'])
+            user = UserModel.objects.get(pk=pk)
+            follower = Follower.objects.get(user=pk, user2=pk2)
+            follower.delete()
+            return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
+        except:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ProjectApi (ModelViewSet):

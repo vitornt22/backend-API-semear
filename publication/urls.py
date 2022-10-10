@@ -41,4 +41,4 @@ urlpatterns = [
          views.PublicationApi.as_view({"get": "unSavePublication"})),
 ]
 urlpatterns += publication_api_router.urls + \
-    like_api_router.urls + comment_api_router.urls
+    like_api_router.urls + comment_api_router.urls+publicationSaved_api_router.urls  # noqa

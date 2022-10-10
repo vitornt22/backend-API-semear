@@ -32,14 +32,13 @@ class FollowerApi(ModelViewSet):
 
     @action(methods=['GET'], detail=True)
     def unFollower(self, request, pk, *args, **kwargs):
-        try:
-            pk2 = int(kwargs['pk2'])
-            user = UserModel.objects.get(pk=pk)
-            follower = Follower.objects.get(user=pk, user2=pk2)
-            follower.delete()
-            return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
-        except:
-            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+
+        pk2 = int(kwargs['pk2'])
+        user = UserModel.objects.get(pk=pk)
+        user2 = UserModel.objects.get(pk=pk2)
+        follower = Follower.objects.get(user=user, user2=user2)
+        follower.delete()
+        return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
 
 
 class ProjectApi (ModelViewSet):

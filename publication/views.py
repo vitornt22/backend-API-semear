@@ -16,7 +16,7 @@ from .serializers import (CommentSerializer, LikeSerializer,
 
 # Create your views here.
 class PublicationSavedApi(ModelViewSet):
-    queryset = PublicationSaved
+    queryset = PublicationSaved.objects.all()
     serializer_class = PublicationSavedSerializer
 
 

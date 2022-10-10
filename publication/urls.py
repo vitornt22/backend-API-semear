@@ -17,6 +17,12 @@ comment_api_router.register(
     basename='Comment'
 )
 
+publicationSaved_api_router = SimpleRouter()
+publicationSaved_api_router.register(
+    'publicationSaved/api', views.PublicationSavedApi,
+    basename='PublicationSaved'
+)
+
 like_api_router = SimpleRouter()
 like_api_router.register(
     'like/api', views.LikeApi,

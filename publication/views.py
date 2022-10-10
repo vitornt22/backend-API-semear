@@ -6,12 +6,18 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from user.models import UserModel
 
+from publication.publicationSavedSerializer import PublicationSavedSerializer
+
 from .models import Comment, Like, Publication, PublicationSaved
 from .pagination import TimelineResultsPagination
 from .serializers import (CommentSerializer, LikeSerializer,
                           PublicationSerializer)
 
+
 # Create your views here.
+class PublicationSavedApi(ModelViewSet):
+    queryset = PublicationSaved
+    serializer_class = PublicationSavedSerializer
 
 
 class PublicationApi (ModelViewSet):

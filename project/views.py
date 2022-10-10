@@ -27,17 +27,9 @@ class FollowerApi(ModelViewSet):
         user = UserModel.objects.get(pk=pk)
         user2 = UserModel.objects.get(pk=pk2)
         if Follower.objects.filter(user=user, user2=user2).exists():
-            return Response({"label": "Deixar de Seguir"})
+            return Response({"label": True})
         else:
-            return Response({"label": "Seguir"})
-
-    @action(methods=['GET'], detail=True)
-    def isLiked(self, request, pk, *args, **kwargs):
-        pub = int(kwargs['publication'])
-        if Like.objects.filter(user=pk, publication=pub).exists():
-            return Response({"label": "Descurtir"})
-        else:
-            return Response({"label": "Curtir"})
+            return Response({"label": False})
 
     @action(methods=['GET'], detail=True)
     def setFollower(self, request, pk, *args, **kwargs):

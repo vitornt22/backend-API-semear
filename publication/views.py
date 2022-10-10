@@ -41,9 +41,9 @@ class PublicationApi (ModelViewSet):
             publicationSaved = PublicationSaved.objects.get(
                 user=user, publication=pub)
             publicationSaved.delete()
-            return Response({}, status=status.HTTP_200_OK)
+            return Response({"check": True}, status=status.HTTP_200_OK)
         except:
-            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"check": False}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=['GET'])
     def getCommentsNumber(self, request, pk,   * args, **kwargs):

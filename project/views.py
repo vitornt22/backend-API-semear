@@ -23,15 +23,12 @@ class FollowerApi(ModelViewSet):
 
     @action(methods=['GET'], detail=True)
     def setFollower(self, request, pk, *args, **kwargs):
-        try:
-            pk2 = int(kwargs['pk2'])
-            user = UserModel.objects.get(pk=pk)
-            user2 = UserModel.objects.get(pk=pk2)
-            follower = Follower.create(user=user, user2=user2)
-            follower.save()
-            return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
-        except:
-            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+        pk2 = int(kwargs['pk2'])
+        user = UserModel.objects.get(pk=pk)
+        user2 = UserModel.objects.get(pk=pk2)
+        follower = Follower(user=user, user2=user2)
+        follower.save()
+        return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
 
     @action(methods=['GET'], detail=True)
     def unFollower(self, request, pk, *args, **kwargs):

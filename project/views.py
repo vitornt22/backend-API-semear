@@ -9,8 +9,28 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from user.models import UserModel
 
-from .models import Project
+from .followerserializer import FollowerSerializer
+from .models import Follower, Project
 from .serializers import ProjectSerializer
+
+
+class FollowerApi(ModelViewSet):
+    queryset = Follower.objects.all()
+    serializer_class = FollowerSerializer
+
+    @action(methods=['GET'], detail=True)
+    def setFollower(self, request, pk, *args, **kwargs):
+        pk2 = int(kwargs['pk2'])
+        user = UserModel.objects.get(pk=pk)
+        user2 = UserModel.objects.get(pk=pk2)
+        follower = Follower.create(user=user, user2=user2)
+        follower.save()
+        if (user.category == 'project'):
+            ...
+
+    @action(methods=['GET'], detail=True)
+    def unFollower(self, request, pk, *args, **kwargs):
+        user2 = int(kwargs['pk'])
 
 
 class ProjectApi (ModelViewSet):
@@ -64,7 +84,7 @@ class ProjectApi (ModelViewSet):
             post_data["user"]["password"]
         )
 
-        if post_data['id_church']!=0:
+        if post_data['id_church'] != 0:
             church = Church.objects.get(id=post_data['id_church'])
         else:
             church = Church.objects.get(id=post_data['id_church'])

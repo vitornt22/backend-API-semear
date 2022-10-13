@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from user.models import UserModel
 
+import publication
 from publication.publicationSavedSerializer import PublicationSavedSerializer
 
 from .models import Comment, Like, Publication, PublicationSaved
@@ -27,6 +28,16 @@ class PublicationApi (ModelViewSet):
     ordering = ('created_at')
 
     @action(methods=['GET'], detail=True)
+    def getLabelPublicationSaved(self, request, pk, *args, **kwargs):
+        pub = int(kwargs['publication'])
+        user = UserModel.objects.get(pk=pk)
+        pub = Publication.objects.get(pk=pub)
+        if PublicationSaved.objects.filter(user=user, publication=pub).exists():  # noqa
+            return Response({"label": True})
+        else:
+            return Response({"label": False})
+
+    @action(methods=['GET'], detail=True)
     def savePublication(self, request, pk, *args, **kwargs):
         try:
             pk2 = int(kwargs['publication'])
@@ -35,8 +46,8 @@ class PublicationApi (ModelViewSet):
             publicationSaved = PublicationSaved(user=user, publication=pub)
             publicationSaved.save()
             return Response({"check": True}, status=status.HTTP_200_OK)
-        except:
-            return Response({"check": False}, status=status.HTTP_400_BAD_REQUEST)
+        except:  # noqa
+            return Response({"check": False}, status=status.HTTP_400_BAD_REQUEST)  # noqa
 
     @action(methods=['GET'], detail=True)
     def unSavePublication(self, request, pk, *args, **kwargs):
@@ -48,8 +59,8 @@ class PublicationApi (ModelViewSet):
                 user=user, publication=pub)
             publicationSaved.delete()
             return Response({"check": True}, status=status.HTTP_200_OK)
-        except:
-            return Response({"check": False}, status=status.HTTP_400_BAD_REQUEST)
+        except:  # noqa
+            return Response({"check": False}, status=status.HTTP_400_BAD_REQUEST)  # noqa
 
     @action(detail=True, methods=['GET'])
     def getCommentsNumber(self, request, pk,   * args, **kwargs):

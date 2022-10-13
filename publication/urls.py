@@ -39,6 +39,8 @@ urlpatterns = [
          views.PublicationApi.as_view({"get": "savePublication"})),
     path('publication/api/<int:pk>/unSavePublication/<int:publication>/',
          views.PublicationApi.as_view({"get": "unSavePublication"})),
+    path('publication/api/<int:pk>/getLabelPublicationSaved/<int:publication>/',  # noqa
+         views.PublicationApi.as_view({"get": "getLabelPublicationSaved"})),
 ]
 urlpatterns += publication_api_router.urls + \
     like_api_router.urls + comment_api_router.urls+publicationSaved_api_router.urls  # noqa

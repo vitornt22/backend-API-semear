@@ -15,6 +15,7 @@ class Adress(models.Model):
 class BankData(models.Model):
     holder = models.CharField(max_length=80, null=False, blank=False)
     cnpj = models.CharField(max_length=14, null=False, blank=False)
+    bankName = models.CharField(max_length=150, null=True, blank=True)
     bank = models.CharField(max_length=8, null=False, blank=False)
     agency = models.CharField(max_length=5, null=False, blank=False)
     digitAgency = models.CharField(max_length=1, null=False, blank=False)

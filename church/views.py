@@ -71,6 +71,7 @@ class ChurchApi (ModelViewSet):
         bankData = BankData.objects.create(
             holder=post_data["bankData"]["holder"],
             cnpj=post_data["bankData"]["cnpj"],
+            bankName=post_data['bankData']["bankName"],
             bank=post_data["bankData"]["bank"],
             agency=post_data["bankData"]["agency"],
             digitAgency=post_data["bankData"]['digitAgency'],

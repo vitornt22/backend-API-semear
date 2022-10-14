@@ -1,4 +1,6 @@
 
+from email.policy import default
+
 from django.db import models
 from user.models import UserModel
 
@@ -12,4 +14,5 @@ class Donation(models.Model):
     is_anonymous = models.BooleanField(default=False)
     value = models.FloatField()
     payment_form = models.CharField(max_length=20)
-   #  voucher = models.ImageField(blank=True, null=True, upload_to='media/')
+    valid = models.BooleanField(default=False)
+    voucher = models.ImageField(blank=True, null=True, upload_to='media/')

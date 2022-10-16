@@ -26,7 +26,7 @@ class TransactionApi(ModelViewSet):
                 user=user,
                 donor=donor,
                 value=post_data['value'],
-                is_anonymous=post_data['is_anonymous'],
+                is_anonymous=bool(post_data['is_anonymous']),
                 payment_form=post_data['payment_form'],
                 valid=False,
                 voucher=request.FILES['voucher'],

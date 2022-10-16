@@ -19,7 +19,8 @@ class Project (models.Model):
 
 
 class Follower(models.Model):
-    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(
+        UserModel, on_delete=models.CASCADE, null=True)
     user2 = models.ForeignKey(
         UserModel, related_name='user2', on_delete=models.CASCADE, null=False)
     created_at = models.DateTimeField(auto_now_add=True)

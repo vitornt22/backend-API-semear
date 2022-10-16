@@ -50,6 +50,30 @@ class FollowerApi(ModelViewSet):
         follower.delete()
         return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
 
+    @action(methods=['GET'], detail=True)
+    def getFollowers(self, request, pk, *args, **kwargs):
+        try:
+            followers = Follower.objects.filter(user2=pk)
+            if len(followers) == 0:
+                response = {}
+            else:
+                response = FollowerSerializer(followers, many=True).data
+            return Response(response, status=status.HTTP_200_OK)
+        except UserModel.DoesNotExist:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['GET'], detail=True)
+    def getFollowing(self, request, pk, *args, **kwargs):
+        try:
+            followers = Follower.objects.filter(user=pk)
+            if len(followers) == 0:
+                response = {}
+            else:
+                response = FollowerSerializer(followers, many=True).data
+            return Response(response, status=status.HTTP_200_OK)
+        except UserModel.DoesNotExist:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class ProjectApi (ModelViewSet):
     queryset = Project.objects.all()

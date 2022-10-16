@@ -24,6 +24,8 @@ urlpatterns = [
     path('follower/api/<int:pk>/getLabelFollower/<int:pk2>/',
          views.FollowerApi.as_view({"get": "getLabelFollower"})),
 
+
+
 ]
 
 

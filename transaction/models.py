@@ -13,6 +13,6 @@ class Donation(models.Model):
         UserModel, related_name='donor_field', on_delete=models.CASCADE, null=True)  # noqa
     is_anonymous = models.BooleanField(default=False)
     value = models.FloatField()
-    payment_form = models.CharField(max_length=20)
+    payment_form = models.CharField(max_length=50)
     valid = models.BooleanField(default=False)
     voucher = models.ImageField(blank=True, null=True, upload_to='media/')

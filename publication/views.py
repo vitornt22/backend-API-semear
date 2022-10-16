@@ -93,7 +93,7 @@ class PublicationApi (ModelViewSet):
                 id_user=post_data['id_user'],
                 upload=request.FILES['upload'],
                 legend=post_data['legend'],
-                is_accountability=False,
+                is_accountability=bool(post_data['is_accountability']),
             )
 
             new_Publication.save()

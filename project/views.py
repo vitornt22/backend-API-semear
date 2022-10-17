@@ -57,7 +57,8 @@ class FollowerApi(ModelViewSet):
             if len(followers) == 0:
                 response = {}
             else:
-                response = FollowerSerializer(followers, many=True).data
+                response = FollowerSerializer(
+                    followers.order_by('-created_at'), many=True).data
             return Response(response, status=status.HTTP_200_OK)
         except UserModel.DoesNotExist:
             return Response({}, status=status.HTTP_400_BAD_REQUEST)
@@ -69,7 +70,8 @@ class FollowerApi(ModelViewSet):
             if len(followers) == 0:
                 response = {}
             else:
-                response = FollowerSerializer(followers, many=True).data
+                response = FollowerSerializer(
+                    followers.order_by('-created_at'), many=True).data
             return Response(response, status=status.HTTP_200_OK)
         except UserModel.DoesNotExist:
             return Response({}, status=status.HTTP_400_BAD_REQUEST)

@@ -43,6 +43,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ChurchSerializer(serializers.ModelSerializer):
     adress = AdressSerializer()
+    user = UserSerializer()
     bankData = BankDataSerializer()
     information = InformationSerializer()
     pix = PixSerializer()

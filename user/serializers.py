@@ -1,4 +1,6 @@
 # flake8: noqa: E501
+from nis import cat
+
 from project.followerserializer import FollowerSerializer
 from project.models import Follower
 from publication.models import PublicationSaved
@@ -6,6 +8,7 @@ from publication.publicationSavedSerializer import PublicationSavedSerializer
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
+from .get_category_information import get_category_information
 from .models import Information, UserModel
 
 
@@ -18,12 +21,16 @@ class InformationSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     followers = serializers.SerializerMethodField('get_followers')
     following = serializers.SerializerMethodField('get_following')
+    information = serializers.SerializerMethodField('get_information')
     savesPublications = serializers.SerializerMethodField(
         'get_saved_publications')
 
     def get_saved_publications(self, obj):
         publications = PublicationSaved.objects.filter(user=obj.id)
         return PublicationSavedSerializer(publications, many=True).data
+
+    def get_information(self, obj):
+        get_category_information(obj.category, obj.id)
 
     def get_following(self, obj):
         user = obj.id
@@ -43,5 +50,5 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
         fields = ('id', 'username', 'email',
-                  'category', 'can_post', 'password', 'followers', 'savesPublications', 'following')
+                  'category', 'can_post', 'password', 'information', 'followers', 'savesPublications', 'following')
         extra_kwargs = {'password': {'write_only': True}}

@@ -30,7 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
         return PublicationSavedSerializer(publications, many=True).data
 
     def get_information(self, obj):
-        get_category_information(obj.category, obj.id)
+        return get_category_information(obj.category, obj.id)
 
     def get_following(self, obj):
         user = obj.id

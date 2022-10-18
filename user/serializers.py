@@ -19,11 +19,7 @@ class InformationSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    followers = serializers.SerializerMethodField('get_followers')
-    following = serializers.SerializerMethodField('get_following')
     information = serializers.SerializerMethodField('get_information')
-    savesPublications = serializers.SerializerMethodField(
-        'get_saved_publications')
 
     def get_saved_publications(self, obj):
         publications = PublicationSaved.objects.filter(user=obj.id)
@@ -50,5 +46,5 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
         fields = ('id', 'username', 'email',
-                  'category', 'can_post', 'password', 'information', 'followers', 'savesPublications', 'following')
+                  'category', 'can_post', 'password', 'information')
         extra_kwargs = {'password': {'write_only': True}}

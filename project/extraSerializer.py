@@ -9,6 +9,12 @@ from user.models import Information, UserModel
 from project.models import Project
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserModel
+        fields = '__all__'
+
+
 class PixSerializer(serializers.ModelSerializer):
     class Meta:
         model = PIX
@@ -32,12 +38,6 @@ class AdressSerializer(serializers.ModelSerializer):
 class InformationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Information
-        fields = '__all__'
-
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserModel
         fields = '__all__'
 
 

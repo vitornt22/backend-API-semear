@@ -1,4 +1,5 @@
 
+
 from church.models import Church
 from donor.models import Donor
 from informations.models import PIX, Adress, BankData
@@ -9,10 +10,34 @@ from user.models import Information, UserModel
 from project.models import Project
 
 
+class InformationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Information
+        fields = '__all__'
+
+
 class UserSerializer(serializers.ModelSerializer):
+    information = serializers.SerializerMethodField('get_category_information')
+
     class Meta:
         model = UserModel
-        fields = '__all__'
+        fields = ('id', 'username', 'email',
+                  'category', 'can_post', 'password', 'information')
+
+    def get_category_information(self, obj):
+        category = obj.category
+        id = obj.id
+        if category == 'church':
+            church = Church.objects.get(user=id)
+            return InformationSerializer(church.information).data
+        if category == 'project':
+            project = Project.objects.get(user=id)
+            return InformationSerializer(project.information).data
+        if category == 'donor':
+            return None
+        if category == 'missionary':
+            missionary = Missionary.objects.get(user=id)
+            return InformationSerializer(missionary.information).data
 
 
 class PixSerializer(serializers.ModelSerializer):

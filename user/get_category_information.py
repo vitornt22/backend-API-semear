@@ -16,18 +16,12 @@ class InformationSerializer (serializers.ModelSerializer):
 def get_category_information(category, id):
     if category == 'church':
         church = Church.objects.get(user=id)
-        if church.information is not None:
-            return InformationSerializer(church.information).data
-        return None
+        return InformationSerializer(church.information).data
     if category == 'project':
         project = Project.objects.get(user=id)
-        if project.information is not None:
-            return InformationSerializer(project.information).data
-        return None
+        return InformationSerializer(project.information).data
     if category == 'donor':
         return None
     if category == 'missionary':
         missionary = Missionary.objects.get(user=id)
-        if missionary.information is not None:
-            return InformationSerializer(missionary.information).data
-        return None
+        return InformationSerializer(missionary.information).data

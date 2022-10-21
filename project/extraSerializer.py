@@ -1,5 +1,6 @@
 
 
+import informations
 from church.models import Church
 from donor.models import Donor
 from informations.models import PIX, Adress, BankData
@@ -29,15 +30,21 @@ class UserSerializer(serializers.ModelSerializer):
         id = obj.id
         if category == 'church':
             church = Church.objects.get(user=id)
-            return InformationSerializer(church.information).data
+            if church.information is not None:
+                return InformationSerializer(church.information).data
+            return None
         if category == 'project':
             project = Project.objects.get(user=id)
-            return InformationSerializer(project.information).data
+            if project.information is not None:
+                return InformationSerializer(project.information).data
+            return None
         if category == 'donor':
             return None
         if category == 'missionary':
             missionary = Missionary.objects.get(user=id)
-            return InformationSerializer(missionary.information).data
+            if missionary.information is not None:
+                return InformationSerializer(missionary.information).data
+            return None
 
 
 class PixSerializer(serializers.ModelSerializer):

@@ -20,4 +20,4 @@ class Church (models.Model):
         PIX, on_delete=models.CASCADE, null=True, blank=True)
 
     information = models.ForeignKey(
-        Information, on_delete=models.CASCADE, null=True)
+        Information, on_delete=models.CASCADE, null=True, blank=True)

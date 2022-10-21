@@ -18,7 +18,6 @@ class InformationSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     information = serializers.SerializerMethodField('get_category_information')
-    name = serializers.SerializerMethodField('get_name')
 
     class Meta:
         model = UserModel

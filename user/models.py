@@ -16,10 +16,6 @@ class UserManager(BaseUserManager):
             raise ValueError('Nome de Usuario é necessário')
         if not category:
             raise ValueError('Categoria é necessário')
-        if not email:
-            raise ValueError('Email é necessário')
-        if not password:
-            raise ValueError('Senha é necessária')
 
         user = self.model(
             can_post=can_post,
@@ -54,10 +50,10 @@ class UserModel (AbstractBaseUser):
         blank=False, null=False, verbose_name='category', max_length=15)
     username = models.CharField(
         blank=False, null=False, verbose_name='username', max_length=15)
-    email = models.EmailField(blank=False, null=False,
+    email = models.EmailField(blank=True, null=True,
                               verbose_name='email', unique=True)
     password = models.CharField(
-        blank=False, null=False, verbose_name='password', max_length=100)
+        blank=True, null=True, verbose_name='password', max_length=100)
     phone = models.CharField(verbose_name='phone',
                              blank=True, null=True, max_length=16)
     can_post = models.BooleanField(default=False, blank=True,)
@@ -67,7 +63,8 @@ class UserModel (AbstractBaseUser):
     is_superuser = models.BooleanField(blank=True, null=True, default=False)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['category', 'password', 'username', 'can_post']
+    REQUIRED_FIELDS = ['category', 'password',
+                       'username', 'can_post']
 
     objects = UserManager()
 

@@ -43,7 +43,7 @@ class PublicationSerializer(serializers.ModelSerializer):
     def get_project(self, obj):
         user = UserModel.objects.get(id=obj.id_user)
         if user.category == 'project':
-            result = Project.objects.get(user=user)
+            result = Project.objects.get(user=obj.user)
             return ProjectSerializer(result).data
         else:
             return None
@@ -52,7 +52,7 @@ class PublicationSerializer(serializers.ModelSerializer):
         user = UserModel.objects.get(id=obj.id_user)
 
         if user.category == 'missionary':
-            result = Missionary.objects.get(user=user)
+            result = Missionary.objects.get(user=obj.user)
             return MissionarySerializer(result).data
         else:
             return None

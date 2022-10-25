@@ -30,7 +30,7 @@ class PublicationApi (ModelViewSet):
     @action(methods=['GET'], detail=True)
     def getMyPublications(self, request, pk, *args, **kwargs):
         user = UserModel.objects.get(id=pk)
-        publications = Publication.objects.filter(user=pk)
+        publications = Publication.objects.filter(user=user)
         print("PUBLICATIONS, ", publications)
         return Response(PublicationSerializer(publications, many=True).data, status=status.HTTP_200_OK)  # noqa
 

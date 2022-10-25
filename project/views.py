@@ -22,6 +22,14 @@ class FollowerApi(ModelViewSet):
     serializer_class = FollowerSerializer
 
     @action(methods=['GET'], detail=True)
+    def searchFollower(self, request, pk, *args, **kwargs):
+        search = int(kwargs['search'])
+        category = int(kwargs['category'])
+
+        if (category == 'following'):
+            listFollower = Follower.objects.filter(user=pk)
+
+    @action(methods=['GET'], detail=True)
     def getLabelFollower(self, request, pk, *args, **kwargs):
         pk2 = int(kwargs['pk2'])
         user = UserModel.objects.get(pk=pk)

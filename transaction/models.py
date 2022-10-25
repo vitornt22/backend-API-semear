@@ -15,4 +15,5 @@ class Donation(models.Model):
     value = models.FloatField()
     payment_form = models.CharField(max_length=50)
     valid = models.BooleanField(default=False)
+    recused = models.BooleanField(default=False)
     voucher = models.ImageField(blank=True, null=True, upload_to='media/')

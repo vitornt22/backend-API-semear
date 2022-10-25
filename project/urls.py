@@ -23,6 +23,8 @@ urlpatterns = [
          views.FollowerApi.as_view({"get": "unFollower"})),
     path('follower/api/<int:pk>/getLabelFollower/<int:pk2>/',
          views.FollowerApi.as_view({"get": "getLabelFollower"})),
+    path('follower/api/<int:pk>/<str:search>/searchFollower/<str:category>/',
+         views.FollowerApi.as_view({"get": "getLabelFollower"})),
 
 
 

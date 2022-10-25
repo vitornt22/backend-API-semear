@@ -1,4 +1,6 @@
 
+from ast import Delete
+
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -13,6 +15,44 @@ from .serializers import TransactionSerializer
 class TransactionApi(ModelViewSet):
     queryset = Donation.objects.all()
     serializer_class = TransactionSerializer
+
+    @action(methods=['GET'], detail=True)
+    def getTransactionValidations(self, request, pk, *args, **kwargs):
+        try:
+            donations = Donation.objects.filter(user=pk, valid=False)
+            return Response(TransactionSerializer(donations, many=True).data, status=status.HTTP_200_OK)
+        except Donation.DoesNotExist:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['GET'], detail=True)
+    def setValidation(self, request, pk, *args, **kwargs):
+        try:
+            donation = Donation.objects.get(id=pk)
+            donation.valid = True
+            donation.save()
+            return Response(status=status.HTTP_200_OK)
+        except Donation.DoesNotExist:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['GET'], detail=True)
+    def recuseDonation(self, request, pk, *args, **kwargs):
+        try:
+            donation = Donation.objects.get(id=pk)
+            donation.recused = True
+            donation.valid = False
+            donation.save()
+            return Response(status=status.HTTP_200_OK)
+        except Donation.DoesNotExist:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['GET'], detail=True)
+    def deleteDonation(self, request, pk, *args, **kwargs):
+        try:
+            donation = Donation.objects.get(id=pk)
+            donation.delete()
+            return Response(status=status.HTTP_200_OK)
+        except Donation.DoesNotExist:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
     def create(self, request, *args, **kwargs):
         post_data = request.data

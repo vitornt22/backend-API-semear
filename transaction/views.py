@@ -22,7 +22,7 @@ class TransactionApi(ModelViewSet):
     def getTransactionValidations(self, request, pk, *args, **kwargs):
         try:
             donations = Donation.objects.filter(
-                user=pk, valid=False).order_by('-created_at')
+                user=pk, valid=False).order_by('created_at')
             return Response(TransactionSerializer(donations, many=True).data, status=status.HTTP_200_OK)  # noqa
         except Donation.DoesNotExist:
             return Response({}, status=status.HTTP_400_BAD_REQUEST)
@@ -31,7 +31,7 @@ class TransactionApi(ModelViewSet):
     def getDonations(self, request, pk, *args, **kwargs):
         try:
             donations = Donation.objects.filter(
-                user=pk, valid=True).order_by('-created_at')
+                user=pk, valid=True).order_by('created_at')
             return Response(TransactionSerializer(donations, many=True).data, status=status.HTTP_200_OK)  # noqa
         except Donation.DoesNotExist:
             return Response({}, status=status.HTTP_400_BAD_REQUEST)

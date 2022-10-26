@@ -17,3 +17,5 @@ class Donation(models.Model):
     valid = models.BooleanField(default=False)
     recused = models.BooleanField(default=False)
     voucher = models.ImageField(blank=True, null=True, upload_to='media/')
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)

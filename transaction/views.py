@@ -25,6 +25,14 @@ class TransactionApi(ModelViewSet):
             return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=['GET'], detail=True)
+    def getDonations(self, request, pk, *args, **kwargs):
+        try:
+            donations = Donation.objects.filter(user=pk, valid=True)
+            return Response(TransactionSerializer(donations, many=True).data, status=status.HTTP_200_OK)
+        except Donation.DoesNotExist:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['GET'], detail=True)
     def setValidation(self, request, pk, *args, **kwargs):
         try:
             donation = Donation.objects.get(id=pk)

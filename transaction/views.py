@@ -10,7 +10,7 @@ from .serializers import TransactionSerializer
 
 # Create your views here.
 class TransactionApi(ModelViewSet):
-    queryset = Donation.objects.all()
+    queryset = Donation.objects.all().order_by('created_at')
     serializer_class = TransactionSerializer
 
     @action(methods=['GET'], detail=False)

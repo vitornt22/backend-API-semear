@@ -1,6 +1,3 @@
-
-from ast import Delete
-
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -16,19 +13,26 @@ class TransactionApi(ModelViewSet):
     queryset = Donation.objects.all()
     serializer_class = TransactionSerializer
 
+    @action(methods=['GET'], detail=False)
+    def getAllTransactions(self, request, *args, **kwargs):
+        transactions = Donation.objects.all()
+        return Response(TransactionSerializer(transactions, many=True).data, status=status.HTTP_200_OK)
+
     @action(methods=['GET'], detail=True)
     def getTransactionValidations(self, request, pk, *args, **kwargs):
         try:
-            donations = Donation.objects.filter(user=pk, valid=False)
-            return Response(TransactionSerializer(donations, many=True).data, status=status.HTTP_200_OK)
+            donations = Donation.objects.filter(
+                user=pk, valid=False).order_by('-created_at')
+            return Response(TransactionSerializer(donations, many=True).data, status=status.HTTP_200_OK)  # noqa
         except Donation.DoesNotExist:
             return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=['GET'], detail=True)
     def getDonations(self, request, pk, *args, **kwargs):
         try:
-            donations = Donation.objects.filter(user=pk, valid=True)
-            return Response(TransactionSerializer(donations, many=True).data, status=status.HTTP_200_OK)
+            donations = Donation.objects.filter(
+                user=pk, valid=True).order_by('-created_at')
+            return Response(TransactionSerializer(donations, many=True).data, status=status.HTTP_200_OK)  # noqa
         except Donation.DoesNotExist:
             return Response({}, status=status.HTTP_400_BAD_REQUEST)
 

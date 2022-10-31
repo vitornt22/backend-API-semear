@@ -32,7 +32,10 @@ class TransactionApi(ModelViewSet):
         try:
             donations = Donation.objects.filter(
                 user=pk, valid=True).order_by('-created_at')
-            return Response(TransactionSerializer(donations, many=True).data, status=status.HTTP_200_OK)  # noqa
+            donations = TransactionSerializer(donations, many=True).data
+            send = Donation.objects.filter(donor=pk, valid=True)
+            send = TransactionSerializer(send, many=True).data
+            return Response({'send': send, 'receive': donations}, status=status.HTTP_200_OK)  # noqa
         except Donation.DoesNotExist:
             return Response({}, status=status.HTTP_400_BAD_REQUEST)
 

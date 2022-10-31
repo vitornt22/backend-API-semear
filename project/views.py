@@ -21,7 +21,7 @@ class FollowerApi(ModelViewSet):
     queryset = Follower.objects.all()
     serializer_class = FollowerSerializer
 
-    @action(methods=['GET'], detail=True)
+    @action(methods=['GET'], detail=True, )
     def searchFollower(self, request, pk, *args, **kwargs):
         search = int(kwargs['search'])
         category = int(kwargs['category'])

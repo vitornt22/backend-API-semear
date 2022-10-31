@@ -16,7 +16,7 @@ class TransactionApi(ModelViewSet):
     @action(methods=['GET'], detail=False)
     def getAllTransactions(self, request, *args, **kwargs):
         transactions = Donation.objects.all()
-        return Response(TransactionSerializer(transactions, many=True).data, status=status.HTTP_200_OK)
+        return Response(TransactionSerializer(transactions, many=True).data, status=status.HTTP_200_OK)  # noqa
 
     @action(methods=['GET'], detail=True)
     def getTransactionValidations(self, request, pk, *args, **kwargs):

@@ -63,7 +63,7 @@ class BankDataSerializer(serializers.ModelSerializer):
 class AdressSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Information
+        model = Adress
         fields = '__all__'
 
 

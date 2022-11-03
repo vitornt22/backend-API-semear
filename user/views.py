@@ -7,13 +7,20 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from .models import UserModel
-from .serializers import UserSerializer
+from .models import Information, UserModel
+from .serializers import InformationSerializer, UserSerializer
+
+
+class InformationApi (ModelViewSet):
+    queryset = Information.objects.all()
+    serializer_class = InformationSerializer
+    permission_classes = ['AllowAny']
 
 
 class UserApi (ModelViewSet):
     queryset = UserModel.objects.all()
     serializer_class = UserSerializer
+    permission_classes = ['AllowAny']
 
     @action(methods=['GET'], detail=True)
     def getButtonLike(self, request, pk, *args, **kwargs):

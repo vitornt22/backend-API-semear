@@ -31,7 +31,7 @@ class UserApi (ModelViewSet):
             user.username = instance['username']
             print('ENR+222!')
             user.email = instance['email']
-            user.category = instance['category']
+            user.category = bool(instance['category'])
             user.password = instance['password']
             user.save()
             if user.category == 'donor':

@@ -21,12 +21,15 @@ class UserApi (ModelViewSet):
     queryset = UserModel.objects.all()
     serializer_class = UserSerializer
 
-    @action(methods=['GET', 'POST'], detail=True)
-    def updateUser(self, request, pk, *args, **kwargs):
+    @action(methods=['POST', 'GET'], detail=False)
+    def updateUser(self, request,  *args, **kwargs):
         try:
             instance = request.data
-            user = UserModel.objects.get(id=pk)
+            print(request.data)
+            user = UserModel.objects.get(id=instance.get("id"))
+            print('ENR+TRRA!')
             user.username = instance['username']
+            print('ENR+222!')
             user.email = instance['email']
             user.category = instance['category']
             user.password = instance['password']

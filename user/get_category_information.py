@@ -1,5 +1,4 @@
 from church.models import Church
-from donor.models import Donor
 from missionary.models import Missionary
 from project.models import Project
 from rest_framework import serializers
@@ -15,13 +14,22 @@ class InformationSerializer (serializers.ModelSerializer):
 
 def get_category_information(category, id):
     if category == 'church':
-        church = Church.objects.get(user=id)
-        return InformationSerializer(church.information).data
+        try:
+            church = Church.objects.get(user=id)
+            return InformationSerializer(church.information).data
+        except Church.DoesNotExist:
+            return None
     if category == 'project':
-        project = Project.objects.get(user=id)
-        return InformationSerializer(project.information).data
+        try:
+            project = Project.objects.get(user=id)
+            return InformationSerializer(project.information).data
+        except Project.DoesNotExist:
+            return None
     if category == 'donor':
         return None
     if category == 'missionary':
-        missionary = Missionary.objects.get(user=id)
-        return InformationSerializer(missionary.information).data
+        try:
+            missionary = Missionary.objects.get(user=id)
+            return InformationSerializer(missionary.information).data
+        except Missionary.DoesNotExist:
+            return None

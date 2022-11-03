@@ -22,7 +22,7 @@ class UserApi (ModelViewSet):
     serializer_class = UserSerializer
 
     @action(methods=['GET', 'POST'], detail=True)
-    def update(self, request, pk, *args, **kwargs):
+    def updateUser(self, request, pk, *args, **kwargs):
         try:
             instance = request.data
             user = UserModel.objects.get(id=pk)

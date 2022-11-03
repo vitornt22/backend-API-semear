@@ -1,5 +1,6 @@
 # flake8: noqa: E501
 import publication
+from donor.models import Donor
 from publication.models import Like
 from rest_framework import generics, status
 from rest_framework.decorators import action
@@ -20,8 +21,23 @@ class UserApi (ModelViewSet):
     queryset = UserModel.objects.all()
     serializer_class = UserSerializer
 
-    def put(self, request, *args, **kwargs):
-        return self.partial_update(request, *args, **kwargs)
+    @action(methods=['GET', 'POST'], detail=True)
+    def update(self, request, pk, *args, **kwargs):
+        try:
+            instance = request.data
+            user = UserModel.objects.get(id=pk)
+            user.username = instance['username']
+            user.email = instance['email']
+            user.category = instance['category']
+            user.password = instance['password']
+            user.save()
+            if user.category == 'donor':
+                donor = Donor.objects.get(user=user)
+                donor.fullname = instance['fullname']
+                donor.save()
+            return Response(UserSerializer(user, many=False).data, status=status.HTTP_200_OK)
+        except UserModel.DoesNotExist:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(methods=['GET'], detail=True)
     def getButtonLike(self, request, pk, *args, **kwargs):

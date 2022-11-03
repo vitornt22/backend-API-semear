@@ -20,9 +20,6 @@ class UserApi (ModelViewSet):
     queryset = UserModel.objects.all()
     serializer_class = UserSerializer
 
-    def update(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
-
     @action(methods=['GET'], detail=True)
     def getButtonLike(self, request, pk, *args, **kwargs):
         pub = int(kwargs['target_id'])

@@ -14,13 +14,14 @@ from .serializers import InformationSerializer, UserSerializer
 class InformationApi (ModelViewSet):
     queryset = Information.objects.all()
     serializer_class = InformationSerializer
-    permission_classes = ['AllowAny']
 
 
 class UserApi (ModelViewSet):
     queryset = UserModel.objects.all()
     serializer_class = UserSerializer
-    permission_classes = ['AllowAny']
+
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
 
     @action(methods=['GET'], detail=True)
     def getButtonLike(self, request, pk, *args, **kwargs):

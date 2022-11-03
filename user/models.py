@@ -24,7 +24,7 @@ class UserManager(BaseUserManager):
             email=self.normalize_email(email),
         )
 
-        user.set_password(password)
+        # user.set_password(password)
         user.save(using=self._db)
         return user
 
@@ -76,6 +76,10 @@ class UserModel (AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+
+    def save(self, *args, **kwargs):
+        self.set_password(self.password)
+        super(UserModel, self).save(*args, **kwargs)
 
 
 class Information(models.Model):

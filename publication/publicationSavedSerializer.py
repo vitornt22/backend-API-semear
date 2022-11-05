@@ -7,8 +7,8 @@ from .serializers import PublicationSerializer
 
 
 class PublicationSavedSerializer(serializers.ModelSerializer):
-    user = UserSerializer().read_only
-    publication = PublicationSerializer().read_only
+    user = UserSerializer()
+    publication = PublicationSerializer()
 
     class Meta:
         model = PublicationSaved

@@ -1,4 +1,10 @@
 # flake8: noqa: E501
+import smtplib
+from email import encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 import publication
 from donor.models import Donor
 from publication.models import Like
@@ -21,26 +27,6 @@ class UserApi (ModelViewSet):
     queryset = UserModel.objects.all()
     serializer_class = UserSerializer
 
-    @action(methods=['POST', 'GET'], detail=False)
-    def updateUser(self, request,  *args, **kwargs):
-        try:
-            instance = request.data
-            print(request.data)
-            user = UserModel.objects.get(id=instance.get("id"))
-            print('ENR+TRRA!')
-            user.username = instance['username']
-            print('ENR+222!')
-            user.email = instance['email']
-            user.password = instance['password']
-            user.save()
-            if user.category == 'donor':
-                donor = Donor.objects.get(user=user)
-                donor.fullname = instance['fullname']
-                donor.save()
-            return Response(UserSerializer(user, many=False).data, status=status.HTTP_200_OK)
-        except UserModel.DoesNotExist:
-            return Response({}, status=status.HTTP_400_BAD_REQUEST)
-
     @action(methods=['GET'], detail=True)
     def getButtonLike(self, request, pk, *args, **kwargs):
         pub = int(kwargs['target_id'])
@@ -52,6 +38,35 @@ class UserApi (ModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
+
+    @action(methods=['GET'], detail=False)
+    def changePassword(self, request, email, pk, *args, **kwargs):
+        host = "smtp.gmail.com"
+        port = '587'
+        login = 'aplicativosemear@gmail.com'
+        senha = "gkpqxtlkrpnmhvgb"
+
+        server = smtplib.SMTP(host, port)
+        server.starttls()
+        server.login(login, senha)
+
+        # MONTANDO EMAIL
+        corpo = 'olá'
+        email_msg = MIMEMultipart()
+        email_msg['From'] = login
+        email_msg['To'] = email
+        email_msg['Subject'] = "Codigo para mudança de senha "
+        email_msg.attach(MIMEText(corpo, 'text'))
+
+        # ENVIANDO EMAIL
+
+        try:
+            server.sendmail(email_msg['From'],
+                            email_msg['To'], email_msg.as_string())
+            server.quit()
+
+        except:
+            ...
 
 
 class checkEmail(generics.RetrieveAPIView):

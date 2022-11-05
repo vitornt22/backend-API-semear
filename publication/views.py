@@ -28,6 +28,12 @@ class PublicationApi (ModelViewSet):
     ordering = ('created_at')
 
     @action(methods=['GET'], detail=True)
+    def getMyPublicationsSaved(self, request, pk, *args, **kwargs):
+        publications = Publication.objects.filter(user=pk)
+        print("PUBLICATIONS, ", publications)
+        return Response(PublicationSerializer(publications, many=True).data, status=status.HTTP_200_OK)  # noqa
+
+    @action(methods=['GET'], detail=True)
     def getMyPublications(self, request, pk, *args, **kwargs):
         user = UserModel.objects.get(id=pk)
         publications = Publication.objects.filter(user=user)

@@ -3,8 +3,6 @@ from nis import cat
 
 from project.followerserializer import FollowerSerializer
 from project.models import Follower
-from publication.models import PublicationSaved
-from publication.publicationSavedSerializer import PublicationSavedSerializer
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
@@ -20,10 +18,6 @@ class InformationSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     information = serializers.SerializerMethodField('get_information')
-
-    def get_saved_publications(self, obj):
-        publications = PublicationSaved.objects.filter(user=obj.id)
-        return PublicationSavedSerializer(publications, many=True).data
 
     def get_information(self, obj):
         return get_category_information(obj.category, obj.id)

@@ -7,8 +7,15 @@ from .serializers import PublicationSerializer
 
 
 class PublicationSavedSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
-    publication = PublicationSerializer(read_only=True)
+
+    class Meta:
+        model = PublicationSaved
+        fields = '__all__'
+
+
+class PublicationSavedSerializerRead(serializers.ModelSerializer):
+    user = UserSerializer()
+    publication = PublicationSerializer()
 
     class Meta:
         model = PublicationSaved

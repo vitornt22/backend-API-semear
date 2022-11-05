@@ -7,7 +7,8 @@ from rest_framework.viewsets import ModelViewSet
 from user.models import UserModel
 
 import publication
-from publication.publicationSavedSerializer import PublicationSavedSerializer
+from publication.publicationSavedSerializer import (
+    PublicationSavedSerializer, PublicationSavedSerializerRead)
 
 from .models import Comment, Like, Publication, PublicationSaved
 from .pagination import TimelineResultsPagination
@@ -31,7 +32,7 @@ class PublicationApi (ModelViewSet):
     def getMyPublicationsSaved(self, request, pk, *args, **kwargs):
         publications = PublicationSaved.objects.filter(user=pk)
         print("PUBLICATIONS, ", publications)
-        return Response(PublicationSavedSerializer(publications, many=True).data, status=status.HTTP_200_OK)  # noqa
+        return Response(PublicationSavedSerializerRead(publications, many=True).data, status=status.HTTP_200_OK)  # noqa
 
     @action(methods=['GET'], detail=True)
     def getMyPublications(self, request, pk, *args, **kwargs):

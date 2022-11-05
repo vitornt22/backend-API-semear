@@ -29,9 +29,9 @@ class PublicationApi (ModelViewSet):
 
     @action(methods=['GET'], detail=True)
     def getMyPublicationsSaved(self, request, pk, *args, **kwargs):
-        publications = Publication.objects.filter(user=pk)
+        publications = PublicationSaved.objects.filter(user=pk)
         print("PUBLICATIONS, ", publications)
-        return Response(PublicationSerializer(publications, many=True).data, status=status.HTTP_200_OK)  # noqa
+        return Response(PublicationSavedSerializer(publications, many=True).data, status=status.HTTP_200_OK)  # noqa
 
     @action(methods=['GET'], detail=True)
     def getMyPublications(self, request, pk, *args, **kwargs):

@@ -38,12 +38,15 @@ class InformationApi (ModelViewSet):
                 project = Project.objects.get(user=id)
                 project.information = information
                 project.save()
-                return Response(ProjectSerializer(project).data, status=status.HTTP_200_OK)
+                return Response({"user": UserSerializer(user).data,
+                                 "categoryData": ProjectSerializer(project).data},
+                                status=status.HTTP_200_OK)
             elif (user.category == 'missionary'):
                 missionary = Missionary.objects.get(user=id)
                 missionary.information = information
                 missionary.save()
-                return Response(MissionarySerializer(missionary).data, status=status.HTTP_200_OK)
+                return Response({"user": UserSerializer(user).data,
+                                 "categoryData": MissionarySerializer(missionary).data}, status=status.HTTP_200_OK)
 
         return Response({'this': 'teste'})
 

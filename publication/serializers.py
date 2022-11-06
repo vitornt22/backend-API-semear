@@ -1,10 +1,11 @@
 
 
+from rest_framework import serializers
+
 from missionary.models import Missionary
 from missionary.serializers import MissionarySerializer
 from project.models import Project
 from project.serializers import ProjectSerializer
-from rest_framework import serializers
 from user.models import UserModel
 from user.serializers import UserSerializer
 
@@ -42,19 +43,26 @@ class PublicationSerializer(serializers.ModelSerializer):
 
     def get_project(self, obj):
         user = UserModel.objects.get(id=obj.id_user)
-        if user.category == 'project':
-            result = Project.objects.get(user=obj.user)
-            return ProjectSerializer(result).data
-        else:
+        try:
+            if user.category == 'project':
+                result = Project.objects.get(user=obj.user)
+                return ProjectSerializer(result).data
+            else:
+                return None
+
+        except Project.DoesNotExist:
             return None
 
     def get_missionary(self, obj):
         user = UserModel.objects.get(id=obj.id_user)
 
-        if user.category == 'missionary':
-            result = Missionary.objects.get(user=obj.user)
-            return MissionarySerializer(result).data
-        else:
+        try:
+            if user.category == 'missionary':
+                result = Missionary.objects.get(user=obj.user)
+                return MissionarySerializer(result).data
+            else:
+                return None
+        except Missionary.DoesNotExist:
             return None
 
     def get_likes(self, obj):

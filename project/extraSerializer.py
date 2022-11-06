@@ -2,19 +2,12 @@
 
 from rest_framework import serializers
 
-import informations
 from church.models import Church
 from donor.models import Donor
 from informations.models import PIX, Adress, BankData
 from missionary.models import Missionary
 from project.models import Project
 from user.models import Information, UserModel
-
-
-class InformationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Information
-        fields = '__all__'
 
 
 class UserSerializer(serializers.ModelSerializer):

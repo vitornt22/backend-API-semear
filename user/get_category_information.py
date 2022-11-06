@@ -1,8 +1,8 @@
+from rest_framework import serializers
+
 from church.models import Church
 from missionary.models import Missionary
 from project.models import Project
-from rest_framework import serializers
-
 from user.models import Information
 
 

@@ -77,6 +77,9 @@ class UserModel (AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
+    def delete(self, *args, **kwargs):
+        super(UserModel, self).delete(*args, **kwargs)
+
     def save(self, *args, **kwargs):
         self.set_password(self.password)
         super(UserModel, self).save(*args, **kwargs)

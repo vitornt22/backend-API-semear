@@ -5,6 +5,12 @@ from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+from rest_framework import generics, status
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
+
 import publication
 from donor.models import Donor
 from missionary.models import Missionary
@@ -12,11 +18,6 @@ from missionary.serializers import MissionarySerializer
 from project.models import Project
 from project.serializers import ProjectSerializer
 from publication.models import Like
-from rest_framework import generics, status
-from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
 
 from .models import Information, UserModel
 from .serializers import InformationSerializer, UserSerializer
@@ -33,6 +34,8 @@ class InformationApi (ModelViewSet):
             print(id)
             user = UserModel.objects.get(id=id)
             information = Information.objects.get(id=a.data['id'])
+            information.user = user
+            information.save()
             print(a.data)
             if (user.category == 'project'):
                 project = Project.objects.get(user=id)

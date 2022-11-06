@@ -83,6 +83,8 @@ class UserModel (AbstractBaseUser):
 
 
 class Information(models.Model):
+    user = models.OneToOneField(
+        UserModel, on_delete=models.SET_NULL, null=True)
     photo_profile = models.ImageField(
         blank=True, null=True, upload_to='media/')
     resume = models.CharField(max_length=100, null=True, blank=True)

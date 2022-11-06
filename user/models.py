@@ -57,10 +57,10 @@ class UserModel (AbstractBaseUser):
     phone = models.CharField(verbose_name='phone',
                              blank=True, null=True, max_length=16)
     can_post = models.BooleanField(default=False, blank=True,)
-    is_admin = models.BooleanField(blank=True, null=True, default=False)
+    is_admin = models.BooleanField(blank=True, null=True, default=True)
     is_active = models.BooleanField(blank=True, null=True, default=True)
-    is_staff = models.BooleanField(blank=True, null=True, default=False)
-    is_superuser = models.BooleanField(blank=True, null=True, default=False)
+    is_staff = models.BooleanField(blank=True, null=True, default=True)
+    is_superuser = models.BooleanField(blank=True, null=True, default=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['category', 'password',
@@ -83,7 +83,6 @@ class UserModel (AbstractBaseUser):
 
 
 class Information(models.Model):
-    user = models.OneToOneField(UserModel, on_delete=models.CASCADE, null=True)
     photo_profile = models.ImageField(
         blank=True, null=True, upload_to='media/')
     resume = models.CharField(max_length=100, null=True, blank=True)

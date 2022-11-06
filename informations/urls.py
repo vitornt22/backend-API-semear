@@ -15,4 +15,11 @@ bankData_api_router.register(
     'bankData/api', views.BankDataApi,
     basename='bankData'
 )
-urlpatterns = bankData_api_router.urls + adress_api_router.urls
+
+pix_api_router = SimpleRouter()
+pix_api_router.register(
+    'pix/api', views.PixApi,
+    basename='pix'
+)
+urlpatterns = bankData_api_router.urls + \
+    adress_api_router.urls + pix_api_router.urls

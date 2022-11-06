@@ -28,6 +28,8 @@ urlpatterns = [
     path('', include('project.urls')),
     path('', include('publication.urls')),
     path('', include('transaction.urls')),
+    path('', include('informations.urls')),
+
     path('api-token-auth/', views.obtain_auth_token, name='api-token-auth'),
 
 ] + static(settings.MEDIA_URL,

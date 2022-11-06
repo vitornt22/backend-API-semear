@@ -15,4 +15,4 @@ bankData_api_router.register(
     'bankData/api', views.BankDataApi,
     basename='bankData'
 )
-urlpatterns = bankData_api_router.urls + adress_api_router
+urlpatterns = bankData_api_router.urls + adress_api_router.urls

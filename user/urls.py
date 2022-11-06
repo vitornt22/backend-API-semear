@@ -13,10 +13,17 @@ user_api_router.register(
     'user/api', views.UserApi,
     basename='user'
 )
+
+information_api_router = SimpleRouter()
+information_api_router.register(
+    'information/api', views.InformationApi,
+    basename='information'
+)
 urlpatterns = [
     path('user/api/<str:email>/checkEmail/',
          views.checkEmail.as_view(), name='checkEmail'),
-
+    path('information/api/<int:pk>/createInformation/',
+         views.InformationApi.as_view({"get": "createInformation"})),
     path('user/api/<str:username>/checkUsername/',
          views.checkUsername.as_view(), name='checkUsername'),
     path('user/api/<str:email>/getUserData/',
@@ -31,4 +38,4 @@ urlpatterns = [
          TokenVerifyView.as_view(), name='token_verify_par'),
 ]
 
-urlpatterns += user_api_router.urls
+urlpatterns += user_api_router.urls + information_api_router.urls

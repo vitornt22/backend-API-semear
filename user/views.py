@@ -7,6 +7,10 @@ from email.mime.text import MIMEText
 
 import publication
 from donor.models import Donor
+from missionary.models import Missionary
+from missionary.serializers import MissionarySerializer
+from project.models import Project
+from project.serializers import ProjectSerializer
 from publication.models import Like
 from rest_framework import generics, status
 from rest_framework.decorators import action
@@ -21,6 +25,27 @@ from .serializers import InformationSerializer, UserSerializer
 class InformationApi (ModelViewSet):
     queryset = Information.objects.all()
     serializer_class = InformationSerializer
+
+    def create(self, request, *args, **kwargs):
+        a = super().create(request, *args, **kwargs)
+        if 'id' in request.data:
+            id = request.data['id']
+            print(id)
+            user = UserModel.objects.get(id=id)
+            information = Information.objects.get(id=a.data['id'])
+            print(a.data)
+            if (user.category == 'project'):
+                project = Project.objects.get(user=id)
+                project.information = information
+                project.save()
+                return Response(ProjectSerializer(project).data, status=status.HTTP_200_OK)
+            elif (user.category == 'missionary'):
+                missionary = Missionary.objects.get(user=id)
+                missionary.information = information
+                missionary.save()
+                return Response(MissionarySerializer(missionary).data, status=status.HTTP_200_OK)
+
+        return Response({'this': 'teste'})
 
 
 class UserApi (ModelViewSet):

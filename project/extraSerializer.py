@@ -1,14 +1,14 @@
 
 
+from rest_framework import serializers
+
 import informations
 from church.models import Church
 from donor.models import Donor
 from informations.models import PIX, Adress, BankData
 from missionary.models import Missionary
-from rest_framework import serializers
-from user.models import Information, UserModel
-
 from project.models import Project
+from user.models import Information, UserModel
 
 
 class InformationSerializer(serializers.ModelSerializer):
@@ -29,22 +29,31 @@ class UserSerializer(serializers.ModelSerializer):
         category = obj.category
         id = obj.id
         if category == 'church':
-            church = Church.objects.get(user=id)
-            if church.information is not None:
-                return InformationSerializer(church.information).data
-            return None
+            try:
+                church = Church.objects.get(user=id)
+                if church.information is not None:
+                    return InformationSerializer(church.information).data
+                return None
+            except Church.DoesNotExist:
+                return None
         if category == 'project':
-            project = Project.objects.get(user=id)
-            if project.information is not None:
-                return InformationSerializer(project.information).data
-            return None
+            try:
+                project = Project.objects.get(user=id)
+                if project.information is not None:
+                    return InformationSerializer(project.information).data
+                return None
+            except Project.DoesNotExist:
+                return None
         if category == 'donor':
             return None
         if category == 'missionary':
-            missionary = Missionary.objects.get(user=id)
-            if missionary.information is not None:
-                return InformationSerializer(missionary.information).data
-            return None
+            try:
+                missionary = Missionary.objects.get(user=id)
+                if missionary.information is not None:
+                    return InformationSerializer(missionary.information).data
+                return None
+            except Missionary.DoesNotExist:
+                return None
 
 
 class PixSerializer(serializers.ModelSerializer):

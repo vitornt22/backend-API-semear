@@ -1,10 +1,10 @@
+from rest_framework import serializers
+
 from church.models import Church
 from donor.models import Donor
 from missionary.models import Missionary
-from rest_framework import serializers
-from user.models import UserModel
-
 from project.models import Project
+from user.models import UserModel
 
 from .extraSerializer import (ChurchSerializer, DonorSerializer,
                               MissionarySerializer, ProjectSerializer,
@@ -14,17 +14,29 @@ from .models import Follower
 
 def get_category_data(user):
     if user.category == 'project':
-        project = Project.objects.get(user=user)
-        return ProjectSerializer(project).data
+        try:
+            project = Project.objects.get(user=user)
+            return ProjectSerializer(project).data
+        except Project.DoesNotExist:
+            return None
     elif user.category == 'church':
-        church = Church.objects.get(user=user)
-        return ChurchSerializer(church).data
+        try:
+            church = Church.objects.get(user=user)
+            return ChurchSerializer(church).data
+        except Church.DoesNotExist:
+            return None
     elif user.category == 'missionary':
-        missionary = Missionary.objects.get(user=user)
-        return MissionarySerializer(missionary).data
+        try:
+            missionary = Missionary.objects.get(user=user)
+            return MissionarySerializer(missionary).data
+        except Missionary.DoesNotExist:
+            return None
     elif user.category == 'donor':
-        donor = Donor.objects.get(user=user)
-        return DonorSerializer(donor).data
+        try:
+            donor = Donor.objects.get(user=user)
+            return DonorSerializer(donor).data
+        except Donor.DoesNotExist:
+            return None
 
 
 def return_user_data(pk):

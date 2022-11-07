@@ -58,6 +58,15 @@ class UserApi (ModelViewSet):
     queryset = UserModel.objects.all()
     serializer_class = UserSerializer
 
+    def update(self, request, *args, **kwargs):
+        print('ENTREI AQUI')
+        value = super().update(request, *args, **kwargs)
+        password = a.data['password']
+        user = UserModel.objects.get(id=a.data['id'])
+        user.set_password(password)
+        user.save()
+        return value
+
     @action(methods=['GET'], detail=True)
     def getButtonLike(self, request, pk, *args, **kwargs):
         pub = int(kwargs['target_id'])

@@ -23,8 +23,7 @@ class UserManager(BaseUserManager):
             category=category,
             email=self.normalize_email(email),
         )
-
-        user.set_password(password)
+        user.ser_password(password)
         user.save(using=self._db)
         return user
 
@@ -39,9 +38,8 @@ class UserManager(BaseUserManager):
 
         user.is_admin = True
         user.is_staff = True
-        user.is_active = True
+        #user.is_active = True
         user.is_superuser = True
-        user.set_password(password)
         user.save(using=self._db)
         return user
 

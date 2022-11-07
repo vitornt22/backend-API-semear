@@ -23,7 +23,7 @@ class UserManager(BaseUserManager):
             category=category,
             email=self.normalize_email(email),
         )
-        user.ser_password(password)
+        user.set_password(password)
         user.save(using=self._db)
         return user
 

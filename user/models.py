@@ -79,9 +79,13 @@ class UserModel (AbstractBaseUser):
     def delete(self, *args, **kwargs):
         super(UserModel, self).delete(*args, **kwargs)
 
+
+'''
     def save(self, *args, **kwargs):
         self.set_password(self.password)
         super(UserModel, self).save(*args, **kwargs)
+
+'''
 
 
 class Information(models.Model):

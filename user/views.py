@@ -61,8 +61,8 @@ class UserApi (ModelViewSet):
     def update(self, request, *args, **kwargs):
         print('ENTREI AQUI')
         value = super().update(request, *args, **kwargs)
-        password = a.data['password']
-        user = UserModel.objects.get(id=a.data['id'])
+        password = value.data['password']
+        user = UserModel.objects.get(id=value.data['id'])
         user.set_password(password)
         user.save()
         return value

@@ -3,15 +3,23 @@ from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+
+from project.models import Project
+from transaction.models import Donation
 from user.models import UserModel
 
 from .models import Donor
-from .serializers import DonorSerializer
+from .serializers import DonorSerializer, UserCategoryDataSerializer
 
 
 class DonorApi (ModelViewSet):
     queryset = Donor.objects.all()
     serializer_class = DonorSerializer
+
+    @action(detail=True, methods=['get'], )
+    def getProjectsHelped(self, request, pk):
+        user = UserModel.objects.filter(id=pk)
+        return Response(UserCategoryDataSerializer(user, many=True).data, status=status.HTTP_200_OK)
 
     @action(detail=True, methods=['get'], )
     def getdonorData(self, request, pk):

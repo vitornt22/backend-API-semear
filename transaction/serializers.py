@@ -59,4 +59,7 @@ class TransactionSerializer(serializers.ModelSerializer):
             return None
 
     def get_user_data(self, obj):
-        get_data(obj.user.category, obj.user.id)
+        try:
+            get_data(obj.user.category, obj.user.id)
+        except:
+            return None

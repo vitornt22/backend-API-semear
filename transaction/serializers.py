@@ -52,8 +52,11 @@ class TransactionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_donor_data(self, obj):
-        print(obj.donor.category)
-        get_data(obj.donor.category, obj.donor.id)
+        try:
+            print(obj.donor.category)
+            get_data(obj.donor.category, obj.donor.id)
+        except:
+            return None
 
     def get_user_data(self, obj):
         get_data(obj.user.category, obj.user.id)

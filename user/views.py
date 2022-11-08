@@ -64,6 +64,7 @@ class UserApi (ModelViewSet):
         password = value.data['password']
         user = UserModel.objects.get(id=value.data['id'])
         user.set_password(password)
+        print(user.password)
         user.save()
         return value
 

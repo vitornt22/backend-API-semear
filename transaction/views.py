@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+
 from user.models import UserModel
 
 from .models import Donation
@@ -15,7 +16,7 @@ class TransactionApi(ModelViewSet):
 
     @action(methods=['GET'], detail=False)
     def getAllTransactions(self, request, *args, **kwargs):
-        transactions = Donation.objects.all()
+        transactions = Donation.objects.all().order_by('-created_at')
         return Response(TransactionSerializer(transactions, many=True).data, status=status.HTTP_200_OK)  # noqa
 
     @action(methods=['GET'], detail=True)

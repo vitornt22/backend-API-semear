@@ -19,8 +19,9 @@ def get_data(category, id):
         try:
             project = Project.objects.get(user=id)
             return ProjectSerializer(project).data
-        except Project.DoesNotExist:
+        except:
             return None
+
     if category == 'donor':
         try:
             donor = Donor.objects.get(user=id)
@@ -54,12 +55,16 @@ class TransactionSerializer(serializers.ModelSerializer):
     def get_donor_data(self, obj):
         try:
             print(obj.donor.category)
-            get_data(obj.donor.category, obj.donor.id)
+            a = get_data(obj.donor.category, obj.donor)
+            print("A", a)
+            return a
         except:
             return None
 
     def get_user_data(self, obj):
         try:
-            get_data(obj.user.category, obj.user.id)
+            a = get_data(obj.user.category, obj.user)
+            print("B", a)
+            return a
         except:
             return None

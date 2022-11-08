@@ -17,25 +17,25 @@ from .models import Donation
 def get_data(category, id):
     if category == 'project':
         try:
-            project = Project.objects.get(id=id)
+            project = Project.objects.get(user=id)
             return ProjectSerializer(project).data
         except Project.DoesNotExist:
             return None
     if category == 'donor':
         try:
-            donor = Donor.objects.get(id=id)
+            donor = Donor.objects.get(user=id)
             return DonorSerializer(donor).data
         except Donor.DoesNotExist:
             return None
     if category == 'church':
         try:
-            project = Church.objects.get(id=id)
+            project = Church.objects.get(user=id)
             return ChurchSerializer(project).data
         except Church.DoesNotExist:
             return None
     if category == 'missionary':
         try:
-            project = Missionary.objects.get(id=id)
+            project = Missionary.objects.get(user=id)
             return MissionarySerializer(project).data
         except Missionary.DoesNotExist:
             return None
@@ -52,7 +52,8 @@ class TransactionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_donor_data(self, obj):
-        get_data(obj.user.category, obj.user.id)
+        print(obj.donor.category)
+        get_data(obj.donor.category, obj.donor.id)
 
     def get_user_data(self, obj):
         get_data(obj.user.category, obj.user.id)

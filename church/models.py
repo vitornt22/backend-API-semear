@@ -1,4 +1,5 @@
 from django.db import models
+
 from informations.models import PIX, Adress, BankData
 from user.models import Information, UserModel
 
@@ -10,7 +11,7 @@ class Church (models.Model):
         UserModel, on_delete=models.CASCADE, null=True, blank=True)
     cnpj = models.CharField(max_length=14, null=False,
                             blank=False, unique=True)
-    ministery = models.CharField(max_length=14, null=False, blank=False)
+    ministery = models.CharField(max_length=50, null=False, blank=False)
     name = models.CharField(max_length=80, null=False, blank=False)
     adress = models.ForeignKey(
         Adress, on_delete=models.CASCADE, null=True, blank=True)

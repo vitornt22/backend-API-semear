@@ -1,9 +1,14 @@
 # flake8: noqa: E501
-from informations.models import PIX, Adress, BankData
-from rest_framework import generics, status
+from rest_framework import generics, serializers, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+
+from informations.models import PIX, Adress, BankData
+from missionary.models import Missionary
+from missionary.serializers import MissionarySerializer
+from project.models import Project
+from project.serializers import ProjectSerializer
 from user.models import UserModel
 
 from .models import Church
@@ -14,7 +19,32 @@ class ChurchApi (ModelViewSet):
     queryset = Church.objects.all()
     serializer_class = ChurchSerializer
 
-    @action(detail=True, methods=['get'], )
+    @action(methods=['GET'], detail=True)
+    def getProjectsChurch(self, request, pk, *args, **kwargs):
+        try:
+            projects = Project.objects.filter(church=pk)
+            return Response(ProjectSerializer(projects, many=True).data, status=status.HTTP_200_OK)
+        except:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['GET'], detail=True)
+    def getMissionariesChurch(self, request, pk, *args, **kwargs):
+        try:
+            missionaries = Missionary.objects.filter(church=pk)
+            return Response(MissionarySerializer(missionaries, many=True).data, status=status.HTTP_200_OK)
+        except:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+
+    @ action(methods=['GET'], detail=True)
+    def getValidationsChurch(self, request, pk, *args, **kwargs):
+        projects = Project.objects.filter(church=pk, user__is_active=True)
+        missionarys = Missionary.objects.filter(
+            church=pk, user__is_active=True)
+        print(projects)
+        all = projects.union(missionarys).order_by('-user__id')
+        return Response(serializers.Serializer(all, many=True).data, status=status.HTTP_200_OK)
+
+    @ action(detail=True, methods=['get'], )
     def getchurchData(self, request, pk):
         try:
             user = UserModel.objects.get(id=pk)
@@ -27,7 +57,7 @@ class ChurchApi (ModelViewSet):
         except:
             return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(methods=['get'], detail=True)
+    @ action(methods=['get'], detail=True)
     def getChurch(self, request, pk):
 
         try:
@@ -37,7 +67,7 @@ class ChurchApi (ModelViewSet):
         except Church.DoesNotExist:
             return Response({'error': True}, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(methods=['get'], detail=True, )
+    @ action(methods=['get'], detail=True, )
     def checkCnpj(self, request, pk):
         check = False
         if Church.objects.filter(cnpj=pk).exists():

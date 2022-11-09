@@ -7,9 +7,24 @@ from user.models import Information
 
 
 class InformationSerializer (serializers.ModelSerializer):
+
     class Meta:
         model = Information
         fields = '__all__'
+
+
+'''
+def get_Data(category, id):
+    try:
+        if category == 'project':
+            projects = Project.objects.get(id=id)
+            return ProjectSerializer(projects).data
+        if category == 'missionary':
+            missionary = Missionary.objects.get(id=id)
+            return MissionarySerializer(missionary).data
+    except:
+        return None
+'''
 
 
 def get_category_information(category, id):

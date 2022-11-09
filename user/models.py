@@ -43,6 +43,8 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+# 2022-11-09 01:25:22.779688+00:00
+
 
 class UserModel (AbstractBaseUser):
     category = models.CharField(
@@ -60,6 +62,8 @@ class UserModel (AbstractBaseUser):
     is_active = models.BooleanField(blank=True, null=True, default=True)
     is_staff = models.BooleanField(blank=True, null=True, default=True)
     is_superuser = models.BooleanField(blank=True, null=True, default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['category', 'password',
@@ -78,14 +82,6 @@ class UserModel (AbstractBaseUser):
 
     def delete(self, *args, **kwargs):
         super(UserModel, self).delete(*args, **kwargs)
-
-
-'''
-    def save(self, *args, **kwargs):
-        self.set_password(self.password)
-        super(UserModel, self).save(*args, **kwargs)
-
-'''
 
 
 class Information(models.Model):

@@ -5,7 +5,8 @@ from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-from rest_framework import generics, status
+from django.db.models import Q
+from rest_framework import generics, serializers, status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -15,7 +16,7 @@ import publication
 from donor.models import Donor
 from missionary.models import Missionary
 from missionary.serializers import MissionarySerializer
-from project.models import Project
+from project.models import Follower, Project
 from project.serializers import ProjectSerializer
 from publication.models import Like
 
